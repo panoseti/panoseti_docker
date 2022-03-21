@@ -1,5 +1,7 @@
 FROM ubuntu:18.04
 
+SHELL ["/bin/bash", "-c"] 
+
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y iputils-ping \
@@ -18,7 +20,8 @@ RUN apt-get update && \
     snmp-mibs-downloader \
     autoconf \
     automake \
-    libtool
+    libtool \
+    libffi-dev
 
 
 RUN cd /opt &&\
@@ -28,7 +31,8 @@ RUN cd /opt &&\
     autoreconf -is &&\
     ./configure &&\
     cp ../../hashpipe_makefile/Makefile ./ &&\
-    make &&\    make install
+    make &&\
+    make install
 
 
 RUN cd /home && \
