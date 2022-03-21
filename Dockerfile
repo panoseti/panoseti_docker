@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
-RUN apt -y update && \
-    apt upgrade && \
-    apt install -y iptuils-ping \
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y iputils-ping \
     net-tools \
     vim \
     git \
@@ -20,6 +20,6 @@ RUN apt -y update && \
 RUN cd /home && \
     git clone -b container https://github.com/liuweiseu/panoseti.git && \
     cd panoseti && \
-    pip3 install -r requirements.txt && \
+    pip3 install -r requirements.txt
 
 WORKDIR /home/panoseti
