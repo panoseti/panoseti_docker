@@ -17,6 +17,16 @@ RUN apt-get update && \
     snmpd \
     snmp-mibs-downloader
 
+RUN cd /opt &&\
+    git clone http://astro.berkeley.edu/~davidm/hashpipe.git &&\
+    git clone https://github.com/liuweiseu/hashpipe_makefile.git &&\
+    cd hashpipe/src &&\
+    autoreconf -is &&\
+    ./configure &&\
+    cp ../../hashpipe_makefile/Makefile ./ &&\
+    make &&\    make install
+
+
 RUN cd /home && \
     git clone -b container https://github.com/liuweiseu/panoseti.git && \
     cd panoseti && \
