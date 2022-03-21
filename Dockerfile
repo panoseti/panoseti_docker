@@ -15,7 +15,11 @@ RUN apt-get update && \
     curl \ 
     snmp \ 
     snmpd \
-    snmp-mibs-downloader
+    snmp-mibs-downloader \
+    autoconf \
+    automake \
+    libtool
+
 
 RUN cd /opt &&\
     git clone http://astro.berkeley.edu/~davidm/hashpipe.git &&\
