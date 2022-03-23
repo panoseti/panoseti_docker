@@ -37,7 +37,7 @@
 ```
     git pull origin master
 ```
-    to get the latest code.
+to get the latest code.
 
 ## Access to grafana
 &ensp; As all of the containers are running, you should be able to access grafana.  
