@@ -1,6 +1,6 @@
 # PANOSETI-Docker
 ## Descriptions
-&ensp; These scripts are used for setting up head node for the PANOSETI control system.
+&ensp; These scripts are used for setting up a head node for the PANOSETI control system.
 ## How to use it
 1. Clone the reposiitory  
 ```
