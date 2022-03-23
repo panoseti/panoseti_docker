@@ -1,6 +1,6 @@
 #! /bin/bash
 
-sudo docker stop panoseti_control
-sudo docker stop redis-server
-sudo docker stop influxdb-server
-sudo docker stop grafana
+sudo docker stop panoseti.control
+sudo docker stop panoseti.redis
+sudo docker stop panoseti.influxdb
+sudo docker stop panoseti.grafana
