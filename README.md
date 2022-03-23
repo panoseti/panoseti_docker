@@ -28,7 +28,7 @@
 &ensp; All of the containers should be running now!
 
 5. run
-```
+```shell
     ./panoseti_terminal.sh
 ```
 &ensp; You should have a termial now!
@@ -51,4 +51,24 @@ to get the latest code.
 &ensp; If you can't access the grafan successfully, try the following scripts:
 ```
     sudo systemctl stop systemd-resolved.service 
+```
+
+## Start and Stop Containers
+&ensp; By default, the containers are running after you create them.   
+&ensp; You can run 
+```shell
+    ./panoseti_stop_containers.sh
+```
+&ensp; to stop all the containers. (Normally, we don't need to do this.)  
+&ensp; When you plan to restart the containers, you just need to run
+```shell
+    ./panoseti_start_containers.sh
+```
+
+## Delete Containers
+&ensp; Sometimes, you may want to delete all of the containers to make the machine clean.  
+&ensp; ***(Make sure you stop them first.)***  
+&ensp; Then you just need to run
+```
+    ./panoseti_del_containers.sh
 ```
