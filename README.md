@@ -43,7 +43,7 @@
 &ensp; As all of the containers are running, you should be able to access grafana.  
 &ensp; Just type in
 ```
-    panoseti.grafana:3000
+    panoseti-grafana:3000
 ```
 &ensp; in your browser, then you should see  
 ![panoseti-grafana](./Figures/panoseti-grafana.png)  
