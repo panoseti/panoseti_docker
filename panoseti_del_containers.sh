@@ -1,5 +1,6 @@
 #! /bin/bash
 
-sudo docker rm -f panoseti_control
-sudo docker rm -f redis-server
-sudo docker rm -f influxdb-server
+sudo docker rm -f panoseti.control
+sudo docker rm -f panoseti.redis
+sudo docker rm -f panoseti.influxdb
+sudo docker rm -f panoseti.grafana
