@@ -20,7 +20,7 @@
 ```shell
     ./panoseti_create_containers.sh
 ```
-&ensp; All the containers will be created.
+&ensp; All the containers will be created.  
 &ensp; ***Note***: This script only needs to be ran one time normally. 
 
 4. run
@@ -33,8 +33,8 @@
 ```shell
     ./panoseti_terminal.sh
 ```
-&ensp; You should have a termial now!
-&ensp; All of the python control scripts are there.
+&ensp; You should have a termial now!  
+&ensp; All of the python control scripts are there.  
 &ensp; Some times, you may need to use
 ```
     git pull origin master
@@ -50,8 +50,8 @@ to get the latest code.
 &ensp; in your browser, then you should see  
 ![panoseti-grafana](./Figures/panoseti-grafana.png)  
 
-&ensp; If you can't access the grafan successfully, try the following scripts:
-```
+&ensp; If you can't access grafana successfully, try the following command:
+```shell
     sudo systemctl stop systemd-resolved.service 
 ```
 
@@ -62,7 +62,7 @@ to get the latest code.
     ./panoseti_stop_containers.sh
 ```
 &ensp; to stop all the containers. (Normally, we don't need to do this.)  
-&ensp; When you plan to restart the containers, you just need to run
+&ensp; When you plan to restart the containers or you restarted the physical machine, you just need to run
 ```shell
     ./panoseti_start_containers.sh
 ```
