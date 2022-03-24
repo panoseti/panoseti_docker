@@ -5,7 +5,7 @@
 # 2. the device name of gps receiver should be a variable
 # 3. the IP address of WRS should be a variable
 
-DATA_PATH='$DATA_PATH/panoseti_container_data'
+DATA_PATH='/home/wei/panoseti_container_data'
 
 ID=$(id -u)
 sudo docker run -itd --name panoseti-control --hostname panoseti-control --net=panoseti-bridge --device=/dev/ttyUSB5 -v $DATA_PATH/headnode_data:/home/data panoseti_control:latest
