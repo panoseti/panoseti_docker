@@ -69,7 +69,6 @@ to get the latest code.
 
 ## Delete Containers
 &ensp; Sometimes, you may want to delete all of the containers to make the machine clean.  
-&ensp; ***(Make sure you stop them first.)***  
 &ensp; Then you just need to run
 ```
     ./panoseti_del_containers.sh
