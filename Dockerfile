@@ -2,6 +2,8 @@ FROM ubuntu:18.04
 
 SHELL ["/bin/bash", "-c"] 
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y iputils-ping \
@@ -21,8 +23,11 @@ RUN apt-get update && \
     autoconf \
     automake \
     libtool \
-    libffi-dev
+    libffi-dev \
+    tzdata
 
+
+RUN apt-get install -y openssh-server
 
 RUN cd /opt &&\
     git clone http://astro.berkeley.edu/~davidm/hashpipe.git &&\

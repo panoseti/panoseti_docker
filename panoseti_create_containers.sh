@@ -5,7 +5,7 @@
 # 2. the device name of gps receiver should be a variable
 # 3. the IP address of WRS should be a variable
 
-DATA_PATH='/home/wei/panoseti_container_data'
+DATA_PATH='/home/$USER/panoseti_container_data'
 
 HK_PORT=60002
 
