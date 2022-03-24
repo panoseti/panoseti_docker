@@ -7,6 +7,8 @@
 
 DATA_PATH='/home/wei/panoseti_container_data'
 
+HK_PORT=60002
+
 mkdir -p $DATA_PATH/headnode_data
 mkdir -p $DATA_PATH/database/redis
 mkdir -p $DATA_PATH/database/influxdb
@@ -14,7 +16,7 @@ mkdir -p $DATA_PATH/database/grafana
 
 ID=$(id -u)
 
-sudo docker run -itd --name panoseti-control --hostname panoseti-control --net=panoseti-bridge --device=/dev/ttyUSB5 -v $DATA_PATH/headnode_data:/home/data panoseti_control:latest
+sudo docker run -itd --name panoseti-control --hostname panoseti-control --net=panoseti-bridge -p $HK_PORT:$HK_PORT/udp --device=/dev/ttyUSB5 -v $DATA_PATH/headnode_data:/home/data panoseti_control:latest
 sudo docker run -d --name panoseti-redis --hostname panoseti-redis --net=panoseti-bridge -v $DATA_PATH/database/redis:/data redis redis-server --save 60 1 --loglevel warning
 sudo docker run -d --name panoseti-influxdb --hostname panoseti-influxdb --net=panoseti-bridge -v $DATA_PATH/database/influxdb:/var/lib/influxdb influxdb:1.8.10
 sudo docker run -d --name panoseti-grafana --hostname panoseti-grafana --net=panoseti-bridge  --user $ID -v $DATA_PATH/database/grafana:/var/lib/grafana grafana/grafana
