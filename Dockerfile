@@ -25,8 +25,7 @@ RUN apt-get update && \
     autoconf \
     automake \
     libtool \
-    libffi-dev \
-    tzdata
+    libffi-dev
 
 RUN cd /opt &&\
     git clone http://astro.berkeley.edu/~davidm/hashpipe.git &&\
@@ -42,7 +41,7 @@ RUN cd /opt &&\
 RUN cd /home && \
     git clone -b container https://github.com/liuweiseu/panoseti.git && \
     cd panoseti && \
-    pip3 install -r requirements.txt && \
-    su root
+    pip3 install -r requirements.txt
 
 WORKDIR /home/panoseti
+
