@@ -1,9 +1,5 @@
 #! /bin/bash
 
-# to-do: 
-# 1. the device name of gps receiver should be a variable
-# 2. the IP address of WRS should be a variable
-
 if [ $# != 1 ]; then
 DATA_PATH="/home/$USER/panoseti_container_data"
 else
