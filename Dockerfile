@@ -1,8 +1,5 @@
 FROM ubuntu:18.04
 
-ARG user=panoseti_virtual
-ARG pwd=panoseti
-
 USER root
 
 SHELL ["/bin/bash", "-c"] 
@@ -41,16 +38,11 @@ RUN cd /opt &&\
     make &&\
     make install
 
-RUN useradd --create-home --no-log-init --shell /bin/bash ${user} \
-    && adduser ${user} sudo \
-    && echo "${user}:${pwd}" | chpasswd
 
-WORKDIR /home/${user}
-
-USER ${user}
-
-RUN git clone -b container https://github.com/liuweiseu/panoseti.git && \
+RUN cd /home && \
+    git clone -b container https://github.com/liuweiseu/panoseti.git && \
     cd panoseti && \
-    pip3 install -r requirements.txt
+    pip3 install -r requirements.txt && \
+    su root
 
-WORKDIR /home/${user}/panoseti
+WORKDIR /home/panoseti
