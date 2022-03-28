@@ -16,7 +16,7 @@ hostname.
 &ensp; Before using the scripts, please make sure docker has been installed.  
 &ensp; If it's not installed, please follow the instructions [here](https://docs.docker.com/engine/install/).
 ## How to use it
-1. Clone the reposiitory  
+1. Clone the repository  
 ```
     git clone https://github.com/liuweiseu/panoseti_docker.git
 ```
