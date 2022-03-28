@@ -24,7 +24,7 @@ hostname.
 ```shell
     ./panoseti_build_image.sh
 ```
-&ensp; All the necessary images will be pulled from docker hub.  
+&ensp; All the necessary images will be pulled from docker hub, expect the panoseti_control image.   
 &ensp; The panoseti_control image will be built based on the Dockerfile.  
 &ensp; ***Note***: This script only needs to be ran one time normally.  
 
