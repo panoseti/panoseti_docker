@@ -20,7 +20,7 @@ hostname.
 ```
     git clone https://github.com/liuweiseu/panoseti_docker.git
 ```
-2. run 
+2. Build images  
 ```shell
     ./panoseti_build_image.sh
 ```
@@ -28,7 +28,7 @@ hostname.
 &ensp; The panoseti_control image will be built based on the Dockerfile.  
 &ensp; ***Note***: This script only needs to be ran one time normally.  
 
-3. run
+3. Create containers  
 ```shell
     ./panoseti_create_containers.sh
 ```
@@ -38,18 +38,19 @@ hostname.
 
 &ensp; By default, the all the useful data, including housekeeping data, redis data, influxdb data and grafana data, will be stored under /home/$USER/panoseti_container_data.  
 
-&ensp; You can use
+&ensp; You can use 
 ```
     ./panoseti_create_containers.sh {data path}
 ```
 &ensp; to specify where you want to store all of the data.  
 
-4. run
+4. Open a termial for using panoseti control script
 ```shell
     ./panoseti_terminal.sh
 ```
 &ensp; You should have a termial now!  
 &ensp; All of the python control scripts are there.  
+
 &ensp; Some times, you may need to use
 ```
     git pull origin master
