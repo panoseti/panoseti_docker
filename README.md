@@ -36,6 +36,14 @@ hostname.
 &ensp; Now, all of the containers should be running!  
 &ensp; ***Note***: This script only needs to be ran one time normally. 
 
+&ensp; By default, the all the useful data, including housekeeping data, redis data, influxdb data and grafana data, will be stored under /home/$USER/panoseti_container_data.  
+
+&ensp; You can use
+```
+    ./panoseti_create_containers.sh {data path}
+```
+&ensp; to specify where you want to store all of the data.  
+
 4. run
 ```shell
     ./panoseti_terminal.sh
@@ -76,7 +84,7 @@ to get the latest code.
 
 ## Delete Containers
 &ensp; Sometimes, you may want to delete all of the containers to make the machine clean.  
-&ensp; Then you just need to run
+&ensp; You just need to run
 ```
     ./panoseti_del_containers.sh
 ```
