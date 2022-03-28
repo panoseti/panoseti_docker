@@ -33,7 +33,7 @@ hostname.
     ./panoseti_create_containers.sh
 ```
 &ensp; All the containers will be created.  
-&ensp; Now, all of the containers should be running!
+&ensp; Now, all of the containers should be running!  
 &ensp; ***Note***: This script only needs to be ran one time normally. 
 
 4. run
