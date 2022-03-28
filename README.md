@@ -1,6 +1,18 @@
 # PANOSETI-Docker
 ## Descriptions
 &ensp; These scripts are used for setting up a head node for the PANOSETI control system.  
+&ensp; The architecture of the docker system is shown below:  
+<img src=./Figures/panoseti-docker-system.png width=700 height=350>  
+&ensp; There are 5 containers:  
+* panoseti-control: This is the container for the control scripts. 
+* panoseti-redis: This is the container for the redis database.
+* panoseti-influxdb: This is the container for the influxdb database.
+* panoseti-grafana: This is the container for the grafan.
+* panoseti-dns: This container is working as a dns server, so all the containers can talk to each other via 
+hostname.  
+
+&ensp; All the useful data are stored in the Persistent Volume on the physical machine, so we will not lose data, even though the containers stop working.  
+
 &ensp; Before using the scripts, please make sure docker has been installed.  
 &ensp; If it's not installed, please follow the instructions [here](https://docs.docker.com/engine/install/).
 ## How to use it
@@ -21,15 +33,10 @@
     ./panoseti_create_containers.sh
 ```
 &ensp; All the containers will be created.  
+&ensp; Now, all of the containers should be running!
 &ensp; ***Note***: This script only needs to be ran one time normally. 
 
 4. run
-```shell
-    ./panoseti_start_containers.sh
-```
-&ensp; All of the containers should be running now!
-
-5. run
 ```shell
     ./panoseti_terminal.sh
 ```
