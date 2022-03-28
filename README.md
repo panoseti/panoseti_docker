@@ -7,7 +7,7 @@
 * panoseti-control: This is the container for the control scripts. 
 * panoseti-redis: This is the container for the redis database.
 * panoseti-influxdb: This is the container for the influxdb database.
-* panoseti-grafana: This is the container for the grafan.
+* panoseti-grafana: This is the container for the grafana.
 * panoseti-dns: This container is working as a dns server, so all the containers can talk to each other via 
 hostname.  
 
