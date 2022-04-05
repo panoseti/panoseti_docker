@@ -39,7 +39,7 @@ RUN cd /opt &&\
 
 
 RUN cd /home && \
-    git clone -b container https://github.com/liuweiseu/panoseti.git && \
+    git clone -b container https://github.com/panoseti/panoseti.git && \
     cd panoseti && \
     pip3 install -r requirements.txt
 
