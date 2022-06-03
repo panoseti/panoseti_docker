@@ -1,0 +1,108 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Inspect a single Quabo's metadata.",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 5,
+  "iteration": 1654215072099,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [
+        "Home"
+      ],
+      "targetBlank": false,
+      "title": "Home",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [
+        "Quabo",
+        "Overview"
+      ],
+      "targetBlank": false,
+      "title": "Quabo Home",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "liveNow": false,
+  "panels": [],
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [
+    "Quabo"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "vl1DUxrnz"
+        },
+        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.measurements(bucket: \"metadata\")\n  |> range(start: v.timeRangeStart, v.timeRangeStop)\n  |> filter(fn: (r) => \n    r.observatory == \"${observatory}\" \n    and r._measurement =~ /QUABO_[0-9]*/)\n  |> group(columns: [\"_field\"])\n  |> last()\n  |> group()",
+        "description": "Quabos available in the selected time interval.",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Quabo ",
+        "multi": false,
+        "name": "uid",
+        "options": [],
+        "query": "import \"influxdata/influxdb/schema\"\n\nschema.measurements(bucket: \"metadata\")\n  |> range(start: v.timeRangeStart, v.timeRangeStop)\n  |> filter(fn: (r) => \n    r.observatory == \"${observatory}\" \n    and r._measurement =~ /QUABO_[0-9]*/)\n  |> group(columns: [\"_field\"])\n  |> last()\n  |> group()",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Examine Specific Quabo",
+  "uid": "oVK2NBrnk",
+  "version": 10,
+  "weekStart": ""
+}

@@ -1,47 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_METADATA",
-      "label": "metadata",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "influxdb",
-      "pluginName": "InfluxDB"
-    }
-  ],
-  "__elements": [],
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "dashlist",
-      "name": "Dashboard list",
-      "version": ""
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "8.5.3"
-    },
-    {
-      "type": "panel",
-      "id": "histogram",
-      "name": "Histogram",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "influxdb",
-      "name": "InfluxDB",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "state-timeline",
-      "name": "State timeline",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -68,9 +25,55 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1654135637570,
-  "links": [],
+  "id": 4,
+  "iteration": 1654214977269,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "Quabo",
+        "Overview"
+      ],
+      "targetBlank": false,
+      "title": "Quabos",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "White_Rabbit",
+        "Overview"
+      ],
+      "targetBlank": false,
+      "title": "White Rabbit",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "GPS",
+        "Overview"
+      ],
+      "targetBlank": false,
+      "title": "GPS",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
@@ -79,371 +82,369 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 0
       },
       "id": 2,
-      "panels": [],
+      "panels": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "vl1DUxrnz"
+          },
+          "description": "Distribution of Quabos temperatures since the last update.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "fillOpacity": 80,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineWidth": 1
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red"
+                  },
+                  {
+                    "color": "orange",
+                    "value": 5
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 10
+                  },
+                  {
+                    "color": "green",
+                    "value": 25
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 40
+                  },
+                  {
+                    "color": "orange",
+                    "value": 45
+                  },
+                  {
+                    "color": "red",
+                    "value": 50
+                  }
+                ]
+              },
+              "unit": "celsius"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 1
+          },
+          "id": 10,
+          "links": [
+            {
+              "title": "Show details",
+              "url": ""
+            }
+          ],
+          "options": {
+            "bucketOffset": 0,
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "vl1DUxrnz"
+              },
+              "query": "from(bucket: \"metadata\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => \n    r.observatory == \"${observatory}\" \n    and r._measurement =~ /QUABO_[0-9]*/)\n  |> group(columns: [\"UID\"])\n  // Take the mean of TEMP1 values in every v.windowPeriod time interval. \n  |> aggregateWindow(every: v.windowPeriod, fn: mean, column: \"TEMP1\")",
+              "refId": "A"
+            }
+          ],
+          "title": "Quabo Temps",
+          "transformations": [],
+          "type": "histogram"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "vl1DUxrnz"
+          },
+          "description": "Display the status of the SOFTPLL in WRS switches.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "fillOpacity": 70,
+                "lineWidth": 0,
+                "spanNulls": false
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "0": {
+                      "color": "light-red",
+                      "index": 0,
+                      "text": "SOFTPLL UNLOCKED"
+                    },
+                    "1": {
+                      "color": "green",
+                      "index": 1,
+                      "text": "SOFTPLL LOCKED"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 1
+          },
+          "id": 13,
+          "options": {
+            "alignValue": "left",
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "mergeValues": true,
+            "rowHeight": 0.9,
+            "showValue": "auto",
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "vl1DUxrnz"
+              },
+              "hide": false,
+              "query": "from(bucket: \"metadata\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => \n    r.observatory == \"${observatory}\" \n    and r.datatype == \"whiterabbit\"\n    and r._field == \"SOFTPLL\")\n  |> aggregateWindow(every: v.windowPeriod, fn: min)\n  ",
+              "refId": "B"
+            }
+          ],
+          "title": "White Rabbit SOFTPLL Status",
+          "type": "state-timeline"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "vl1DUxrnz"
+          },
+          "description": "Display the port link status of a specified WRS.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "fillOpacity": 70,
+                "lineWidth": 0,
+                "spanNulls": false
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "0": {
+                      "color": "light-red",
+                      "index": 0,
+                      "text": "LINK DOWN"
+                    },
+                    "1": {
+                      "color": "green",
+                      "index": 1,
+                      "text": "LINK UP"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 9
+          },
+          "id": 12,
+          "options": {
+            "alignValue": "left",
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "mergeValues": true,
+            "rowHeight": 0.9,
+            "showValue": "auto",
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "vl1DUxrnz"
+              },
+              "query": "from(bucket: \"metadata\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => \n    r.observatory == \"${observatory}\" \n    and r.datatype == \"whiterabbit\"\n    and r._field =~ /Port[ |0-9]{1,}_LINK/)\n  |> aggregateWindow(every: v.windowPeriod, fn: min)\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")",
+              "refId": "A"
+            }
+          ],
+          "title": "White Rabbit Link Status - Specific",
+          "type": "state-timeline"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "vl1DUxrnz"
+          },
+          "description": "Display the port link status of every WRS.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "fillOpacity": 70,
+                "lineWidth": 0,
+                "spanNulls": false
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "0": {
+                      "color": "red",
+                      "index": 2,
+                      "text": "ALL LINKS DOWN"
+                    },
+                    "18": {
+                      "color": "green",
+                      "index": 0,
+                      "text": "ALL LINKS UP"
+                    }
+                  },
+                  "type": "value"
+                },
+                {
+                  "options": {
+                    "from": 1,
+                    "result": {
+                      "color": "light-orange",
+                      "index": 1,
+                      "text": "SOME LINKS DOWN"
+                    },
+                    "to": 17
+                  },
+                  "type": "range"
+                }
+              ],
+              "max": 18,
+              "min": 0,
+              "thresholds": {
+                "mode": "percentage",
+                "steps": [
+                  {
+                    "color": "yellow"
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 9
+          },
+          "id": 15,
+          "options": {
+            "alignValue": "left",
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "mergeValues": true,
+            "rowHeight": 0.9,
+            "showValue": "auto",
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "vl1DUxrnz"
+              },
+              "query": "from(bucket: \"metadata\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => \n    r.observatory == \"${observatory}\" \n    and r.datatype == \"whiterabbit\"\n    and r._field =~ /Port[ |0-9]{1,}_LINK/)\n  |> window(every: v.windowPeriod)\n  |> min(column: \"_value\")\n  |> group(columns: [\"_field\"])\n  |> reduce(\n        fn: (r, accumulator) => ({sum: r._value + accumulator.sum}),\n        identity: {sum: 0})",
+              "refId": "A"
+            }
+          ],
+          "title": "White Rabbit Link Status - General",
+          "type": "state-timeline"
+        }
+      ],
       "title": "Instrument Status",
       "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "${DS_METADATA}"
-      },
-      "description": "Distribution of Quabos temperatures since the last update.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "fillOpacity": 80,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineWidth": 1
-          },
-          "links": [],
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 5
-              },
-              {
-                "color": "yellow",
-                "value": 10
-              },
-              {
-                "color": "green",
-                "value": 25
-              },
-              {
-                "color": "yellow",
-                "value": 40
-              },
-              {
-                "color": "orange",
-                "value": 45
-              },
-              {
-                "color": "red",
-                "value": 50
-              }
-            ]
-          },
-          "unit": "celsius"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 9
-      },
-      "id": 10,
-      "links": [
-        {
-          "title": "Show details",
-          "url": ""
-        }
-      ],
-      "options": {
-        "bucketOffset": 0,
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "${DS_METADATA}"
-          },
-          "query": "from(bucket: \"metadata\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => \n    r.observatory == \"${observatory}\" \n    and r._measurement =~ /QUABO_[0-9]*/)\n  |> group(columns: [\"UID\"])\n  // Take the mean of TEMP1 values in every v.windowPeriod time interval. \n  |> aggregateWindow(every: v.windowPeriod, fn: mean, column: \"TEMP1\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Quabo Temps",
-      "type": "histogram"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "${DS_METADATA}"
-      },
-      "description": "Display the status of the SOFTPLL in WRS switches.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "fillOpacity": 70,
-            "lineWidth": 0,
-            "spanNulls": false
-          },
-          "mappings": [
-            {
-              "options": {
-                "0": {
-                  "color": "light-red",
-                  "index": 0,
-                  "text": "SOFTPLL UNLOCKED"
-                },
-                "1": {
-                  "color": "green",
-                  "index": 1,
-                  "text": "SOFTPLL LOCKED"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 9
-      },
-      "id": 13,
-      "options": {
-        "alignValue": "left",
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "mergeValues": true,
-        "rowHeight": 0.9,
-        "showValue": "auto",
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "${DS_METADATA}"
-          },
-          "hide": false,
-          "query": "from(bucket: \"metadata\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => \n    r.observatory == \"${observatory}\" \n    and r.datatype == \"whiterabbit\"\n    and r._field == \"SOFTPLL\")\n  |> aggregateWindow(every: v.windowPeriod, fn: min)\n  ",
-          "refId": "B"
-        }
-      ],
-      "title": "White Rabbit SOFTPLL Status",
-      "type": "state-timeline"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "${DS_METADATA}"
-      },
-      "description": "Display the port link status of a specified WRS.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "fillOpacity": 70,
-            "lineWidth": 0,
-            "spanNulls": false
-          },
-          "mappings": [
-            {
-              "options": {
-                "0": {
-                  "color": "light-red",
-                  "index": 0,
-                  "text": "LINK DOWN"
-                },
-                "1": {
-                  "color": "green",
-                  "index": 1,
-                  "text": "LINK UP"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 17
-      },
-      "id": 12,
-      "options": {
-        "alignValue": "left",
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "mergeValues": true,
-        "rowHeight": 0.9,
-        "showValue": "auto",
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "${DS_METADATA}"
-          },
-          "query": "from(bucket: \"metadata\")\n  |> range(start: v.timeRangeStart, end: v.timeRangeStop)\n  |> filter(fn: (r) => \n    r.observatory == \"${observatory}\" \n    and r.datatype == \"whiterabbit\"\n    and r._field =~ /Port[ |0-9]{1,}_LINK/)\n  |> aggregateWindow(every: v.windowPeriod, fn: min)\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")",
-          "refId": "A"
-        }
-      ],
-      "title": "White Rabbit Link Status - Specific",
-      "type": "state-timeline"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "${DS_METADATA}"
-      },
-      "description": "Display the port link status of every WRS.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "fillOpacity": 70,
-            "lineWidth": 0,
-            "spanNulls": false
-          },
-          "mappings": [
-            {
-              "options": {
-                "0": {
-                  "color": "red",
-                  "index": 2,
-                  "text": "ALL LINKS DOWN"
-                },
-                "18": {
-                  "color": "green",
-                  "index": 0,
-                  "text": "ALL LINKS UP"
-                }
-              },
-              "type": "value"
-            },
-            {
-              "options": {
-                "from": 1,
-                "result": {
-                  "color": "light-orange",
-                  "index": 1,
-                  "text": "SOME LINKS DOWN"
-                },
-                "to": 17
-              },
-              "type": "range"
-            }
-          ],
-          "max": 18,
-          "min": 0,
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "yellow",
-                "value": null
-              },
-              {
-                "color": "green",
-                "value": 100
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 17
-      },
-      "id": 15,
-      "options": {
-        "alignValue": "left",
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "mergeValues": true,
-        "rowHeight": 0.9,
-        "showValue": "auto",
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "8.5.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "${DS_METADATA}"
-          },
-          "query": "from(bucket: \"metadata\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => \n    r.observatory == \"${observatory}\" \n    and r.datatype == \"whiterabbit\"\n    and r._field =~ /Port[ |0-9]{1,}_LINK/)\n  |> window(every: v.windowPeriod)\n  |> min(column: \"_value\")\n  |> group(columns: [\"_field\"])\n  |> reduce(\n        fn: (r, accumulator) => ({sum: r._value + accumulator.sum}),\n        identity: {sum: 0})",
-          "refId": "A"
-        }
-      ],
-      "title": "White Rabbit Link Status - General",
-      "type": "state-timeline"
     },
     {
       "collapsed": true,
@@ -451,7 +452,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 1
       },
       "id": 6,
       "panels": [],
@@ -464,48 +465,21 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 2
       },
       "id": 8,
       "panels": [],
       "title": "Weather",
       "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "${DS_METADATA}"
-      },
-      "description": "Visualizations of specific metadata.",
-      "gridPos": {
-        "h": 10,
-        "w": 7,
-        "x": 0,
-        "y": 27
-      },
-      "id": 4,
-      "options": {
-        "folderId": 0,
-        "maxItems": 10,
-        "query": "",
-        "showHeadings": true,
-        "showRecentlyViewed": false,
-        "showSearch": true,
-        "showStarred": false,
-        "tags": [
-          "GPS",
-          "Quabo"
-        ]
-      },
-      "pluginVersion": "8.5.3",
-      "title": "Specific Dashboards",
-      "type": "dashlist"
     }
   ],
   "refresh": "",
   "schemaVersion": 36,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "Overview",
+    "Home"
+  ],
   "templating": {
     "list": [
       {
@@ -548,12 +522,17 @@
         "type": "custom"
       },
       {
-        "current": {},
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
         "datasource": {
           "type": "influxdb",
-          "uid": "${DS_METADATA}"
+          "uid": "vl1DUxrnz"
         },
-        "definition": "import \"influxdata/influxdb/schema\"\n\n// TODO: automatically set the datasource variable to the InfluxDB database in the panoseti-influxdb docker container.\n/* Gets all distinct (case-sensitive) tag values for the tag \"observatory\". */\nschema.tagValues(bucket: \"metadata\", tag: \"observatory\", start: 2016-01-01)",
+        "definition": "import \"influxdata/influxdb/schema\"\n\n// TODO: automatically set the datasource variable to the InfluxDB database in the panoseti-influxdb docker container.\n/* Gets all distinct (case-sensitive) tag values for the tag \"observatory\". */\nschema.tagValues(\n    bucket: \"metadata\", \n    tag: \"observatory\", \n    start: 2016-01-01\n)",
         "description": "",
         "hide": 0,
         "includeAll": false,
@@ -561,7 +540,7 @@
         "multi": false,
         "name": "observatory",
         "options": [],
-        "query": "import \"influxdata/influxdb/schema\"\n\n// TODO: automatically set the datasource variable to the InfluxDB database in the panoseti-influxdb docker container.\n/* Gets all distinct (case-sensitive) tag values for the tag \"observatory\". */\nschema.tagValues(bucket: \"metadata\", tag: \"observatory\", start: 2016-01-01)",
+        "query": "import \"influxdata/influxdb/schema\"\n\n// TODO: automatically set the datasource variable to the InfluxDB database in the panoseti-influxdb docker container.\n/* Gets all distinct (case-sensitive) tag values for the tag \"observatory\". */\nschema.tagValues(\n    bucket: \"metadata\", \n    tag: \"observatory\", \n    start: 2016-01-01\n)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -578,6 +557,6 @@
   "timezone": "",
   "title": "Observatory Home",
   "uid": "4aCoY-rnz",
-  "version": 30,
+  "version": 49,
   "weekStart": ""
 }
