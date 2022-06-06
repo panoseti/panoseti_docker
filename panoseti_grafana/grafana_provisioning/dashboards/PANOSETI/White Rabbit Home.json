@@ -1,0 +1,133 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Overview of all White Rabbit Switches.",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 7,
+  "iteration": 1654487457737,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "Home"
+      ],
+      "targetBlank": false,
+      "title": "Home",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "White_Rabbit"
+      ],
+      "targetBlank": false,
+      "title": "Investigate WRS",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "liveNow": false,
+  "panels": [],
+  "refresh": false,
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [
+    "White_Rabbit",
+    "Overview"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "P697866FB46CDC82E"
+        },
+        "definition": "SHOW MEASUREMENTS ON \"metadata\" WHERE \"observatory\" = '$observatory' AND \"datatype\" = 'whiterabbit'",
+        "description": "Select which WRS to display.",
+        "hide": 0,
+        "includeAll": true,
+        "label": "WRS",
+        "multi": true,
+        "name": "wrs",
+        "options": [],
+        "query": "SHOW MEASUREMENTS ON \"metadata\" WHERE \"observatory\" = '$observatory' AND \"datatype\" = 'whiterabbit'",
+        "refresh": 1,
+        "regex": "/WRSWITCH.*/",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "test",
+          "value": "test"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "P697866FB46CDC82E"
+        },
+        "definition": "SHOW TAG VALUES ON \"metadata\"  WITH KEY = \"observatory\"",
+        "description": "Observatory name.",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Observatory",
+        "multi": false,
+        "name": "observatory",
+        "options": [],
+        "query": "SHOW TAG VALUES ON \"metadata\"  WITH KEY = \"observatory\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 5,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1y",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "White Rabbit Home",
+  "uid": "EQrAWEr7z",
+  "version": 3,
+  "weekStart": ""
+}

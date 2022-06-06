@@ -21,18 +21,18 @@
       }
     ]
   },
-  "description": "Inspect a single Quabo's metadata.",
+  "description": "Examine the metadata of a specific White Rabbit Switch.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1654215072099,
+  "id": 3,
+  "iteration": 1654487168098,
   "links": [
     {
       "asDropdown": false,
       "icon": "external link",
-      "includeVars": false,
-      "keepTime": false,
+      "includeVars": true,
+      "keepTime": true,
       "tags": [
         "Home"
       ],
@@ -45,14 +45,14 @@
     {
       "asDropdown": false,
       "icon": "external link",
-      "includeVars": false,
-      "keepTime": false,
+      "includeVars": true,
+      "keepTime": true,
       "tags": [
-        "Quabo",
+        "White_Rabbit",
         "Overview"
       ],
       "targetBlank": false,
-      "title": "Quabo Home",
+      "title": "White Rabbit Home",
       "tooltip": "",
       "type": "dashboards",
       "url": ""
@@ -63,46 +63,66 @@
   "schemaVersion": 36,
   "style": "dark",
   "tags": [
-    "Quabo"
+    "White_Rabbit"
   ],
   "templating": {
     "list": [
       {
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "WRSWITCH",
+          "value": "WRSWITCH"
+        },
+        "definition": "SHOW MEASUREMENTS ON \"metadata\" WHERE \"observatory\" = '$observatory' and \"datatype\" = 'whiterabbit' ",
+        "description": "Select specific a WRS.",
+        "hide": 0,
+        "includeAll": false,
+        "label": "WRS",
+        "multi": false,
+        "name": "wrs",
+        "options": [],
+        "query": "SHOW MEASUREMENTS ON \"metadata\" WHERE \"observatory\" = '$observatory' and \"datatype\" = 'whiterabbit' ",
+        "refresh": 1,
+        "regex": "/WRSWITCH.*/",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "test",
+          "value": "test"
         },
         "datasource": {
           "type": "influxdb",
-          "uid": "vl1DUxrnz"
+          "uid": "P697866FB46CDC82E"
         },
-        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.measurements(bucket: \"metadata\")\n  |> range(start: v.timeRangeStart, v.timeRangeStop)\n  |> filter(fn: (r) => \n    r.observatory == \"${observatory}\" \n    and r._measurement =~ /QUABO_[0-9]*/)\n  |> group(columns: [\"_field\"])\n  |> last()\n  |> group()",
-        "description": "Quabos available in the selected time interval.",
+        "definition": "SHOW TAG VALUES ON \"metadata\"  WITH KEY = \"observatory\"",
+        "description": "Observatory name.",
         "hide": 0,
         "includeAll": false,
-        "label": "Quabo ",
+        "label": "Observatory",
         "multi": false,
-        "name": "uid",
+        "name": "observatory",
         "options": [],
-        "query": "import \"influxdata/influxdb/schema\"\n\nschema.measurements(bucket: \"metadata\")\n  |> range(start: v.timeRangeStart, v.timeRangeStop)\n  |> filter(fn: (r) => \n    r.observatory == \"${observatory}\" \n    and r._measurement =~ /QUABO_[0-9]*/)\n  |> group(columns: [\"_field\"])\n  |> last()\n  |> group()",
+        "query": "SHOW TAG VALUES ON \"metadata\"  WITH KEY = \"observatory\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
-        "sort": 0,
+        "sort": 5,
         "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-1y",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Examine Specific Quabo",
-  "uid": "oVK2NBrnk",
-  "version": 10,
+  "title": "Examine Specific WRS",
+  "uid": "DbAZMPr7z",
+  "version": 3,
   "weekStart": ""
 }
