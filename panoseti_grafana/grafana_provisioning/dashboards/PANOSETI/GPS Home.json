@@ -1,0 +1,93 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Overview of GPS metadata.",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 4,
+  "iteration": 1654477167662,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "Home"
+      ],
+      "targetBlank": false,
+      "title": "Home",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "liveNow": false,
+  "panels": [],
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [
+    "GPS",
+    "Overview"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "lick",
+          "value": "lick"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "P697866FB46CDC82E"
+        },
+        "definition": "SHOW TAG VALUES ON \"metadata\"  WITH KEY = \"observatory\"",
+        "description": "Observatory name.",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Observatory",
+        "multi": false,
+        "name": "observatory",
+        "options": [],
+        "query": "SHOW TAG VALUES ON \"metadata\"  WITH KEY = \"observatory\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 5,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1y",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "GPS Home",
+  "uid": "uGFNmE9nk",
+  "version": 3,
+  "weekStart": ""
+}
