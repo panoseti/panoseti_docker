@@ -1,3 +1,3 @@
 FROM grafana/grafana
 
-COPY grafana_provisioning/ /etc/grafana/provisioning
+COPY grafana_provisioning/ /etc/grafana/conf/provisioning
