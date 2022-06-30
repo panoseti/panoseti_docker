@@ -25,8 +25,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 6,
-  "iteration": 1654487025956,
+  "id": 4,
+  "iteration": 1656614813373,
   "links": [
     {
       "asDropdown": false,
@@ -58,7 +58,164 @@
     }
   ],
   "liveNow": false,
-  "panels": [],
+  "panels": [
+    {
+      "cards": {},
+      "color": {
+        "cardColor": "#b4ff00",
+        "colorScale": "sqrt",
+        "colorScheme": "interpolateViridis",
+        "exponent": 0.5,
+        "mode": "spectrum"
+      },
+      "dataFormat": "timeseries",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P697866FB46CDC82E"
+      },
+      "description": "Heatmap of all Quabo TEMP1 metadata.",
+      "gridPos": {
+        "h": 12,
+        "w": 14,
+        "x": 0,
+        "y": 0
+      },
+      "heatmap": {},
+      "hideZeroBuckets": false,
+      "highlightCards": true,
+      "id": 2,
+      "legend": {
+        "show": false
+      },
+      "reverseYBuckets": false,
+      "targets": [
+        {
+          "alias": "TEMP1",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "QUABO_1016",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"TEMP1\") FROM /QUABO_[\\d]*/ WHERE \"observatory\"='$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "TEMP1"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Quabo Temperatures",
+      "tooltip": {
+        "show": true,
+        "showHistogram": true
+      },
+      "type": "heatmap",
+      "xAxis": {
+        "show": true
+      },
+      "yAxis": {
+        "format": "celsius",
+        "logBase": 1,
+        "show": true
+      },
+      "yBucketBound": "auto"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P697866FB46CDC82E"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 12
+      },
+      "id": 4,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.0.0-beta2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "query": "SELECT last(*) FROM /QUABO_[\\d]*/ WHERE \"observatory\"='$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "logs"
+        }
+      ],
+      "title": "Panel Title",
+      "type": "table"
+    }
+  ],
+  "refresh": false,
   "schemaVersion": 36,
   "style": "dark",
   "tags": [
@@ -69,7 +226,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "All"
           ],
@@ -98,7 +255,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "test",
           "value": "test"
         },
@@ -124,13 +281,13 @@
     ]
   },
   "time": {
-    "from": "now-1y",
-    "to": "now"
+    "from": "2022-06-23T14:46:24.843Z",
+    "to": "2022-06-23T22:27:13.836Z"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Quabo Home",
   "uid": "6lkcLL97z",
-  "version": 4,
+  "version": 1,
   "weekStart": ""
 }

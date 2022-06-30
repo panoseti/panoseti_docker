@@ -25,8 +25,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1655238244333,
+  "id": 6,
+  "iteration": 1656631131330,
   "links": [
     {
       "asDropdown": false,
@@ -65,11 +65,11 @@
         "type": "influxdb",
         "uid": "P697866FB46CDC82E"
       },
-      "description": "Status timeline of Light Sensor Status, Shutter Status, and \"Start Up\".",
+      "description": "Status timeline of Light Sensor Status, Shutter Status, and StartUp.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "fixed"
           },
           "custom": {
             "fillOpacity": 70,
@@ -108,8 +108,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 13,
+        "h": 5,
+        "w": 11,
         "x": 0,
         "y": 0
       },
@@ -173,13 +173,145 @@
         "type": "influxdb",
         "uid": "P697866FB46CDC82E"
       },
-      "description": "Static information about $quabo.",
+      "description": "TEMP1 is read from the TMP125 detector.\nTEMP2 is read from the FPGA.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 4,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "FPGA"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 13,
+        "x": 11,
+        "y": 0
+      },
+      "id": 30,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "lastNotNull"
+          ],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "TEMP125",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "query": "SELECT TEMP1 FROM $quabo WHERE \"observatory\"='$observatory' AND $timeFilter ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "FPGA",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": false,
+          "query": "SELECT TEMP2 FROM $quabo WHERE \"observatory\"='$observatory' AND $timeFilter ",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Quabo Temperatures",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P697866FB46CDC82E"
+      },
+      "description": "$quabo's unique ID.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 0,
+                  "text": "BGA"
+                },
+                "1": {
+                  "index": 1,
+                  "text": "QFP"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -193,10 +325,151 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 8,
-        "x": 13,
-        "y": 0
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 5
+      },
+      "id": 32,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "9.0.0-beta2",
+      "targets": [
+        {
+          "alias": "UID",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "query": "SELECT last(UID) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "Board Loc",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": true,
+          "query": "SELECT last(BOARDLOC) FROM \"$quabo\"  WHERE \"observatory\" = '$observatory' ",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "Quabo version",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": true,
+          "query": "SELECT last(PCBREV_N) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' ",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "Firmware version",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": true,
+          "query": "SELECT last(FWVER) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' ",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "FWTIME",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": true,
+          "query": "SELECT last(FWTIME) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' ",
+          "rawQuery": true,
+          "refId": "E",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Quabo UID",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "UID",
+                "Board Loc",
+                "Quabo version",
+                "Firmware version",
+                "FWTIME"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P697866FB46CDC82E"
+      },
+      "description": "Information about $quabo's firmware.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 0,
+                  "text": "BGA"
+                },
+                "1": {
+                  "index": 1,
+                  "text": "QFP"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 3,
+        "y": 5
       },
       "id": 4,
       "options": {
@@ -222,7 +495,8 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "query": "SELECT UID FROM \"$quabo\" WHERE \"observatory\" = '$observatory'",
+          "hide": true,
+          "query": "SELECT last(UID) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -233,36 +507,50 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "hide": false,
-          "query": "SELECT BOARDLOC FROM \"$quabo\"  WHERE \"observatory\" = '$observatory' ",
+          "hide": true,
+          "query": "SELECT last(BOARDLOC) FROM \"$quabo\"  WHERE \"observatory\" = '$observatory' ",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
         },
         {
+          "alias": "Quabo version",
           "datasource": {
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "hide": false,
-          "query": "SELECT PCBREV_N FROM \"$quabo\" WHERE \"observatory\" = '$observatory' ",
+          "hide": true,
+          "query": "SELECT last(PCBREV_N) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' ",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series"
         },
         {
+          "alias": "Firmware version",
           "datasource": {
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
           "hide": false,
-          "query": "SELECT FWVER FROM \"$quabo\" WHERE \"observatory\" = '$observatory' ",
+          "query": "SELECT last(FWVER) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' ",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series"
+        },
+        {
+          "alias": "FWTIME",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": false,
+          "query": "SELECT last(FWTIME) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' ",
+          "rawQuery": true,
+          "refId": "E",
+          "resultFormat": "time_series"
         }
       ],
-      "title": "Static Quabo Info",
+      "title": "Quabo Firmware Info",
       "transformations": [
         {
           "id": "filterFieldsByName",
@@ -270,7 +558,10 @@
             "include": {
               "names": [
                 "UID",
-                "Board Loc"
+                "Board Loc",
+                "Quabo version",
+                "Firmware version",
+                "FWTIME"
               ]
             }
           }
@@ -279,56 +570,15 @@
       "type": "stat"
     },
     {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 6
-      },
-      "id": 13,
-      "panels": [],
-      "title": "Detector info",
-      "type": "row"
-    },
-    {
       "datasource": {
         "type": "influxdb",
         "uid": "P697866FB46CDC82E"
       },
-      "description": "HVMONx is the bias voltage to detector array x",
+      "description": "Last Computer_UTC",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "Detector Bias Voltage",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "mode": "thresholds"
           },
           "mappings": [],
           "thresholds": {
@@ -337,117 +587,61 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "volt"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Time"
-            },
-            "properties": [
-              {
-                "id": "custom.axisPlacement",
-                "value": "right"
-              },
-              {
-                "id": "unit",
-                "value": "celsius"
               }
             ]
           }
-        ]
+        },
+        "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 7
+        "h": 4,
+        "w": 4,
+        "x": 7,
+        "y": 5
       },
-      "id": 6,
+      "id": 34,
       "options": {
-        "legend": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
-          "displayMode": "list",
-          "placement": "bottom"
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "textMode": "auto"
       },
+      "pluginVersion": "9.0.0-beta2",
       "targets": [
         {
-          "alias": "HVMON0",
           "datasource": {
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "query": "SELECT last(HVMON0) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT last(Computer_UTC) FROM $quabo WHERE \"observatory\"='$observatory' AND $timeFilter ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
-        },
-        {
-          "alias": "HVMON1",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "P697866FB46CDC82E"
-          },
-          "hide": false,
-          "query": "SELECT last(HVMON1) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series"
-        },
-        {
-          "alias": "HVMON2",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "P697866FB46CDC82E"
-          },
-          "hide": false,
-          "query": "SELECT last(HVMON2) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "C",
-          "resultFormat": "time_series"
-        },
-        {
-          "alias": "HVMON3",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "P697866FB46CDC82E"
-          },
-          "hide": false,
-          "query": "SELECT last(HVMON3) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "D",
-          "resultFormat": "time_series"
-        },
-        {
-          "alias": "TEMP1",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "P697866FB46CDC82E"
-          },
-          "hide": true,
-          "query": "SELECT last(TEMP1) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "E",
-          "resultFormat": "time_series"
         }
       ],
-      "title": "Detector High Voltage and Quabo temperature",
-      "type": "timeseries"
+      "title": "Computer UTC",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 13,
+      "panels": [],
+      "title": "Detector Current and Voltage Bias",
+      "type": "row"
     },
     {
       "datasource": {
@@ -502,15 +696,15 @@
               }
             ]
           },
-          "unit": "nA"
+          "unit": "amp"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 7
+        "w": 11,
+        "x": 0,
+        "y": 10
       },
       "id": 7,
       "options": {
@@ -533,7 +727,7 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "query": "SELECT last(HVIMON0) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT HVIMON0 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -545,7 +739,7 @@
             "uid": "P697866FB46CDC82E"
           },
           "hide": false,
-          "query": "SELECT last(HVIMON1) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT HVIMON1 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -557,7 +751,7 @@
             "uid": "P697866FB46CDC82E"
           },
           "hide": false,
-          "query": "SELECT last(HVIMON2) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT HVIMON2 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series"
@@ -569,7 +763,7 @@
             "uid": "P697866FB46CDC82E"
           },
           "hide": false,
-          "query": "SELECT last(HVIMON3) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT HVIMON3 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series"
@@ -579,12 +773,170 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P697866FB46CDC82E"
+      },
+      "description": "HVMONx is the bias voltage to detector array x",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 4,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TEMP1"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "unit",
+                "value": "celsius"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 13,
+        "x": 11,
+        "y": 10
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "HVMON0",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "query": "SELECT HVMON0 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "HVMON1",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": false,
+          "query": "SELECT HVMON1 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "HVMON2",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": false,
+          "query": "SELECT HVMON2 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "HVMON3",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": false,
+          "query": "SELECT HVMON3 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "TEMP1",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": true,
+          "query": "SELECT TEMP1 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
+          "rawQuery": true,
+          "refId": "E",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Detector High Voltage Bias",
+      "type": "timeseries"
+    },
+    {
       "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 18
       },
       "id": 11,
       "panels": [
@@ -632,7 +984,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -648,7 +1001,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 16
+            "y": 19
           },
           "id": 17,
           "options": {
@@ -786,7 +1139,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -802,7 +1156,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 16
+            "y": 19
           },
           "id": 23,
           "options": {
@@ -940,7 +1294,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -956,7 +1311,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 24
+            "y": 27
           },
           "id": 19,
           "options": {
@@ -1094,7 +1449,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1110,7 +1466,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 24
+            "y": 27
           },
           "id": 9,
           "options": {
@@ -1248,7 +1604,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1264,7 +1621,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 32
+            "y": 35
           },
           "id": 24,
           "options": {
@@ -1402,7 +1759,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1418,7 +1776,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 32
+            "y": 35
           },
           "id": 18,
           "options": {
@@ -1522,7 +1880,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 19
       },
       "id": 21,
       "panels": [
@@ -1587,7 +1945,7 @@
             "h": 9,
             "w": 8,
             "x": 0,
-            "y": 17
+            "y": 12
           },
           "id": 15,
           "options": {
@@ -1698,7 +2056,7 @@
                   }
                 ]
               },
-              "unit": "uA"
+              "unit": "amp"
             },
             "overrides": []
           },
@@ -1706,7 +2064,7 @@
             "h": 9,
             "w": 8,
             "x": 8,
-            "y": 17
+            "y": 12
           },
           "id": 16,
           "options": {
@@ -1825,7 +2183,7 @@
             "h": 9,
             "w": 8,
             "x": 16,
-            "y": 17
+            "y": 12
           },
           "id": 22,
           "options": {
@@ -1886,6 +2244,162 @@
       ],
       "title": "IxMON",
       "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "id": 26,
+      "panels": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "description": "Information about $quabo's hardware.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "0": {
+                      "index": 0,
+                      "text": "BGA"
+                    },
+                    "1": {
+                      "index": 1,
+                      "text": "QFP"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 5,
+            "x": 0,
+            "y": 21
+          },
+          "id": 31,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/.*/",
+              "values": false
+            },
+            "text": {},
+            "textMode": "value_and_name"
+          },
+          "pluginVersion": "9.0.0-beta2",
+          "targets": [
+            {
+              "alias": "UID",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P697866FB46CDC82E"
+              },
+              "hide": true,
+              "query": "SELECT last(UID) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' ",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series"
+            },
+            {
+              "alias": "Board Loc",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P697866FB46CDC82E"
+              },
+              "hide": false,
+              "query": "SELECT last(BOARDLOC) FROM \"$quabo\"  WHERE \"observatory\" = '$observatory' ",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series"
+            },
+            {
+              "alias": "Quabo version",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P697866FB46CDC82E"
+              },
+              "hide": false,
+              "query": "SELECT last(PCBREV_N) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' ",
+              "rawQuery": true,
+              "refId": "C",
+              "resultFormat": "time_series"
+            },
+            {
+              "alias": "Firmware version",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P697866FB46CDC82E"
+              },
+              "hide": true,
+              "query": "SELECT last(FWVER) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' ",
+              "rawQuery": true,
+              "refId": "D",
+              "resultFormat": "time_series"
+            },
+            {
+              "alias": "FWTIME",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P697866FB46CDC82E"
+              },
+              "hide": true,
+              "query": "SELECT last(FWTIME) FROM \"$quabo\" WHERE \"observatory\" = '$observatory' ",
+              "rawQuery": true,
+              "refId": "E",
+              "resultFormat": "time_series"
+            }
+          ],
+          "title": "Quabo Hardware Info",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "UID",
+                    "Board Loc",
+                    "Quabo version",
+                    "Firmware version",
+                    "FWTIME"
+                  ]
+                }
+              }
+            }
+          ],
+          "type": "stat"
+        }
+      ],
+      "title": "Hardware and Firmware Info",
+      "type": "row"
     }
   ],
   "refresh": false,
@@ -1899,8 +2413,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Quabo1016",
-          "value": "Quabo1016"
+          "text": "QUABO_1019",
+          "value": "QUABO_1019"
         },
         "datasource": {
           "type": "influxdb",
@@ -1924,8 +2438,8 @@
       {
         "current": {
           "selected": false,
-          "text": "lick",
-          "value": "lick"
+          "text": "test",
+          "value": "test"
         },
         "datasource": {
           "type": "influxdb",
@@ -1949,13 +2463,13 @@
     ]
   },
   "time": {
-    "from": "now-2y",
-    "to": "now-1y"
+    "from": "2022-06-23T16:53:50.336Z",
+    "to": "2022-06-23T17:19:07.965Z"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Examine Specific Quabo",
   "uid": "oVK2NBrnk",
-  "version": 3,
+  "version": 7,
   "weekStart": ""
 }

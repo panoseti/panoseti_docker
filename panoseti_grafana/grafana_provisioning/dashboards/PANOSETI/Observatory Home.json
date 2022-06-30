@@ -25,8 +25,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1654495458101,
+  "id": 5,
+  "iteration": 1656632746327,
   "links": [
     {
       "asDropdown": false,
@@ -81,7 +81,7 @@
         "type": "influxdb",
         "uid": "P697866FB46CDC82E"
       },
-      "description": "Last Quabo \"StartUp\" Status\nin the interval: ${__from:date:iso} to ${__to:date:iso}. A dark red screen indicates that no Quabo data exists for the chosen time interval.",
+      "description": "Last Quabo TEMP1\nin the interval: ${__from:date:iso} to ${__to:date:iso}. A dark red screen indicates that no Quabo data exists for the chosen time interval.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -90,23 +90,65 @@
           "mappings": [
             {
               "options": {
-                "0": {
+                "from": 60,
+                "result": {
                   "color": "red",
                   "index": 0
                 },
-                "1": {
-                  "color": "green",
-                  "index": 1
-                }
+                "to": 1000
               },
-              "type": "value"
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 50,
+                "result": {
+                  "color": "orange",
+                  "index": 1
+                },
+                "to": 59
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": -10,
+                "result": {
+                  "color": "green",
+                  "index": 2
+                },
+                "to": 50
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": -19,
+                "result": {
+                  "color": "orange",
+                  "index": 3
+                },
+                "to": -10
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": -300,
+                "result": {
+                  "color": "red",
+                  "index": 4
+                },
+                "to": -20
+              },
+              "type": "range"
             },
             {
               "options": {
                 "match": "null+nan",
                 "result": {
                   "color": "dark-red",
-                  "index": 2,
+                  "index": 5,
                   "text": "N/A"
                 }
               },
@@ -179,13 +221,44 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "query": "SELECT last(\"StartUp\")  FROM /QUABO_?.*/ WHERE $timeFilter AND \"observatory\" = '$observatory' GROUP BY  time($__interval), \"UID\" fill(null) ",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(TEMP1) FROM /QUABO_?.*/ WHERE \"observatory\" = '$observatory'  AND $timeFilter GROUP BY time($__interval), \"UID\" fill(null)",
           "rawQuery": true,
           "refId": "A",
-          "resultFormat": "time_series"
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
         }
       ],
-      "title": "Last Quabo StartUp Status",
+      "title": "Last Quabo Temperature",
       "transformations": [
         {
           "id": "filterFieldsByName",
@@ -226,7 +299,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "fixed"
           },
           "custom": {
             "fillOpacity": 70,
@@ -324,7 +397,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "fixed"
           },
           "custom": {
             "fillOpacity": 70,
@@ -460,13 +533,13 @@
     ]
   },
   "time": {
-    "from": "2022-05-03T23:11:44.684Z",
-    "to": "2022-08-28T06:22:27.728Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Observatory Home",
   "uid": "4aCoY-rnz",
-  "version": 7,
+  "version": 4,
   "weekStart": ""
 }
