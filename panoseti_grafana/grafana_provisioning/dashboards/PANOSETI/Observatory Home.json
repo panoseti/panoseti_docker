@@ -25,8 +25,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1656632746327,
+  "id": 6,
+  "iteration": 1657177711550,
   "links": [
     {
       "asDropdown": false,
@@ -81,7 +81,7 @@
         "type": "influxdb",
         "uid": "P697866FB46CDC82E"
       },
-      "description": "Last Quabo TEMP1\nin the interval: ${__from:date:iso} to ${__to:date:iso}. A dark red screen indicates that no Quabo data exists for the chosen time interval.",
+      "description": "Last TEMP1 reading from each Quabo.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -92,7 +92,7 @@
               "options": {
                 "from": 60,
                 "result": {
-                  "color": "red",
+                  "color": "dark-red",
                   "index": 0
                 },
                 "to": 1000
@@ -101,12 +101,23 @@
             },
             {
               "options": {
-                "from": 50,
+                "from": 57.5,
                 "result": {
-                  "color": "orange",
+                  "color": "red",
                   "index": 1
                 },
-                "to": 59
+                "to": 60
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 55,
+                "result": {
+                  "color": "orange",
+                  "index": 2
+                },
+                "to": 57.5
               },
               "type": "range"
             },
@@ -115,18 +126,18 @@
                 "from": -10,
                 "result": {
                   "color": "green",
-                  "index": 2
+                  "index": 3
                 },
-                "to": 50
+                "to": 55
               },
               "type": "range"
             },
             {
               "options": {
-                "from": -19,
+                "from": -20,
                 "result": {
                   "color": "orange",
-                  "index": 3
+                  "index": 4
                 },
                 "to": -10
               },
@@ -137,22 +148,11 @@
                 "from": -300,
                 "result": {
                   "color": "red",
-                  "index": 4
+                  "index": 5
                 },
                 "to": -20
               },
               "type": "range"
-            },
-            {
-              "options": {
-                "match": "null+nan",
-                "result": {
-                  "color": "dark-red",
-                  "index": 5,
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
             }
           ],
           "noValue": "No data",
@@ -160,7 +160,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "transparent",
                 "value": null
               },
               {
@@ -183,7 +183,7 @@
                 "value": [
                   {
                     "title": "More details",
-                    "url": "http://localhost:3000/d/oVK2NBrnk/examine-specific-quabo?from=${__from}&to=${__to}&var-quabo=${__series.name}&var-observatory=${observatory}"
+                    "url": "http://128.114.176.40:3000/d/oVK2NBrnk/examine-specific-quabo?from=${__from}&to=${__to}&var-quabo=${__series.name}&var-observatory=${observatory}"
                   }
                 ]
               }
@@ -192,8 +192,8 @@
         ]
       },
       "gridPos": {
-        "h": 9,
-        "w": 24,
+        "h": 12,
+        "w": 16,
         "x": 0,
         "y": 0
       },
@@ -213,7 +213,7 @@
         "text": {},
         "textMode": "name"
       },
-      "pluginVersion": "9.0.0-beta2",
+      "pluginVersion": "9.0.2",
       "targets": [
         {
           "alias": "$measurement",
@@ -278,19 +278,6 @@
       "type": "stat"
     },
     {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 9
-      },
-      "id": 6,
-      "panels": [],
-      "title": "Time and Synchonization",
-      "type": "row"
-    },
-    {
       "datasource": {
         "type": "influxdb",
         "uid": "P697866FB46CDC82E"
@@ -351,10 +338,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 9,
-        "x": 0,
-        "y": 10
+        "h": 12,
+        "w": 8,
+        "x": 16,
+        "y": 0
       },
       "id": 12,
       "options": {
@@ -389,6 +376,96 @@
       "type": "state-timeline"
     },
     {
+      "cards": {},
+      "color": {
+        "cardColor": "#b4ff00",
+        "colorScale": "sqrt",
+        "colorScheme": "interpolateViridis",
+        "exponent": 0.5,
+        "mode": "spectrum"
+      },
+      "dataFormat": "timeseries",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P697866FB46CDC82E"
+      },
+      "description": "Heatmap of all Quabo TEMP1 metadata.",
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 12
+      },
+      "heatmap": {},
+      "hideZeroBuckets": false,
+      "highlightCards": true,
+      "id": 14,
+      "legend": {
+        "show": false
+      },
+      "reverseYBuckets": false,
+      "targets": [
+        {
+          "alias": "TEMP1",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "QUABO_1016",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"TEMP1\") FROM /QUABO_[\\d]*/ WHERE \"observatory\"='$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "TEMP1"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Quabo Temperature Heatmap",
+      "tooltip": {
+        "show": true,
+        "showHistogram": true
+      },
+      "type": "heatmap",
+      "xAxis": {
+        "show": true
+      },
+      "yAxis": {
+        "format": "celsius",
+        "logBase": 1,
+        "show": true
+      },
+      "yBucketBound": "auto"
+    },
+    {
       "datasource": {
         "type": "influxdb",
         "uid": "P697866FB46CDC82E"
@@ -404,6 +481,7 @@
             "lineWidth": 0,
             "spanNulls": false
           },
+          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -422,14 +500,20 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 15,
-        "x": 9,
-        "y": 10
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 12
       },
       "id": 8,
+      "links": [
+        {
+          "title": "GPS Home",
+          "url": "http://128.114.176.40:3000/d/uGFNmE9nk/gps-home?from=${__from}&to=${__to}&var-quabo=${__series.name}&var-observatory=${observatory}"
+        }
+      ],
       "options": {
-        "alignValue": "left",
+        "alignValue": "center",
         "legend": {
           "displayMode": "hidden",
           "placement": "bottom"
@@ -533,13 +617,13 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Observatory Home",
   "uid": "4aCoY-rnz",
-  "version": 4,
+  "version": 2,
   "weekStart": ""
 }
