@@ -25,8 +25,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1656619679514,
+  "id": 2,
+  "iteration": 1657745416685,
   "links": [
     {
       "asDropdown": false,
@@ -64,7 +64,7 @@
         "type": "influxdb",
         "uid": "P697866FB46CDC82E"
       },
-      "description": "Status timeline of $wrs port",
+      "description": "Status timeline of each port in $wrs. Unused port statuses are hidden.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -102,7 +102,31 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Port [^23]/"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "transparent",
+                        "index": 0,
+                        "text": "Not Used (transparent)"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 10,
@@ -175,7 +199,15 @@
         }
       ],
       "title": "$wrs Port Link Status",
-      "transformations": [],
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "/last_Port ?([\\d]*)_LINK/",
+            "renamePattern": "Port $1"
+          }
+        }
+      ],
       "type": "state-timeline"
     }
   ],
@@ -241,13 +273,13 @@
     ]
   },
   "time": {
-    "from": "2022-06-23T15:54:19.409Z",
-    "to": "2022-06-23T21:36:09.963Z"
+    "from": "now-15m",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "White Rabbit Home",
   "uid": "EQrAWEr7z",
-  "version": 6,
+  "version": 1,
   "weekStart": ""
 }

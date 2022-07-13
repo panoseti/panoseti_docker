@@ -26,7 +26,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 3,
-  "iteration": 1657179126210,
+  "iteration": 1657743293531,
   "links": [
     {
       "asDropdown": false,
@@ -173,7 +173,7 @@
         "type": "influxdb",
         "uid": "P697866FB46CDC82E"
       },
-      "description": "TEMP1 is read from the TMP125 detector.\nTEMP2 is read from the FPGA.",
+      "description": "Detector temp is read from the TMP125 sensor, located at the center of the 4 detector arrays.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -248,7 +248,7 @@
             "properties": [
               {
                 "id": "custom.axisPlacement",
-                "value": "right"
+                "value": "auto"
               }
             ]
           },
@@ -286,7 +286,7 @@
               "options": {
                 "mode": "exclude",
                 "names": [
-                  "TEMP125"
+                  "Detector Temp"
                 ],
                 "prefix": "All except:",
                 "readOnly": true
@@ -328,7 +328,7 @@
       },
       "targets": [
         {
-          "alias": "TEMP125",
+          "alias": "Detector Temp",
           "datasource": {
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
@@ -987,7 +987,7 @@
         "type": "influxdb",
         "uid": "P697866FB46CDC82E"
       },
-      "description": "HVMONx is the bias voltage to detector array x",
+      "description": "HVMONx is the bias voltage to detector array x. Note that negative values are plotted as positive.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1084,7 +1084,7 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "query": "SELECT HVMON0 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
+          "query": "SELECT -HVMON0 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -1096,7 +1096,7 @@
             "uid": "P697866FB46CDC82E"
           },
           "hide": false,
-          "query": "SELECT HVMON1 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
+          "query": "SELECT -HVMON1 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -1108,7 +1108,7 @@
             "uid": "P697866FB46CDC82E"
           },
           "hide": false,
-          "query": "SELECT HVMON2 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter",
+          "query": "SELECT -HVMON2 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series"
@@ -1120,7 +1120,7 @@
             "uid": "P697866FB46CDC82E"
           },
           "hide": false,
-          "query": "SELECT HVMON3 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
+          "query": "SELECT -HVMON3 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series"
@@ -1195,8 +1195,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1350,8 +1349,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1505,8 +1503,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1600,8 +1597,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1710,8 +1706,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1806,8 +1801,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1902,8 +1896,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2011,8 +2004,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2106,8 +2098,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2232,9 +2223,9 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "QUABO_1019",
-          "value": "QUABO_1019"
+          "selected": false,
+          "text": "QUABO_1016",
+          "value": "QUABO_1016"
         },
         "datasource": {
           "type": "influxdb",
@@ -2257,7 +2248,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "test",
           "value": "test"
         },
@@ -2290,6 +2281,6 @@
   "timezone": "",
   "title": "Examine Specific Quabo",
   "uid": "oVK2NBrnk",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
