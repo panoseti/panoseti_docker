@@ -26,7 +26,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 6,
-  "iteration": 1657217132078,
+  "iteration": 1657833258317,
   "links": [
     {
       "asDropdown": false,
@@ -237,7 +237,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(TEMP1) FROM /QUABO_?.*/ WHERE \"observatory\" = '$observatory'  AND $timeFilter GROUP BY time($__interval), \"UID\" fill(null)",
+          "query": "SELECT last(TEMP1) FROM /.*/ WHERE \"observatory\" = '$observatory'  AND $timeFilter GROUP BY time($__interval), \"UID\" fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -264,13 +264,7 @@
           "id": "filterFieldsByName",
           "options": {
             "include": {
-              "names": [
-                "QUABO_1016",
-                "QUABO_1017",
-                "QUABO_1018",
-                "QUABO_1019"
-              ],
-              "pattern": "/[0-9]{4}-[0-9]{2}-[0-9]{2} .*/"
+              "pattern": "/QUABO_?.*/"
             }
           }
         }
@@ -665,7 +659,7 @@
       "type": "state-timeline"
     }
   ],
-  "refresh": false,
+  "refresh": "5s",
   "schemaVersion": 36,
   "style": "dark",
   "tags": [
@@ -709,6 +703,6 @@
   "timezone": "",
   "title": "Observatory Home",
   "uid": "4aCoY-rnz",
-  "version": 3,
+  "version": 4,
   "weekStart": ""
 }
