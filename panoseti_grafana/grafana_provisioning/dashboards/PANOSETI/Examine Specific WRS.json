@@ -124,7 +124,7 @@
     "to": "now-7h"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "utc",
   "title": "Examine Specific WRS",
   "uid": "DbAZMPr7z",
   "version": 1,

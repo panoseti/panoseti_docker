@@ -1037,7 +1037,7 @@
     "to": "now-7h"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "utc",
   "title": "GPS Home",
   "uid": "uGFNmE9nk",
   "version": 1,

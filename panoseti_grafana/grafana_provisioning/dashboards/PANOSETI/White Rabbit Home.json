@@ -277,7 +277,7 @@
     "to": "now-7h"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "utc",
   "title": "White Rabbit Home",
   "uid": "EQrAWEr7z",
   "version": 2,

@@ -2278,7 +2278,7 @@
     "to": "now-7h"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "utc",
   "title": "Examine Specific Quabo",
   "uid": "oVK2NBrnk",
   "version": 3,
