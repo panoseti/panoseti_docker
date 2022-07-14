@@ -26,7 +26,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 6,
-  "iteration": 1657835195229,
+  "iteration": 1657835835181,
   "links": [
     {
       "asDropdown": false,
@@ -696,7 +696,7 @@
     ]
   },
   "time": {
-    "from": "now-7h-15m",
+    "from": "now-7h-30m",
     "to": "now-7h"
   },
   "timepicker": {
@@ -705,6 +705,6 @@
   "timezone": "utc",
   "title": "Observatory Home",
   "uid": "4aCoY-rnz",
-  "version": 5,
+  "version": 6,
   "weekStart": ""
 }
