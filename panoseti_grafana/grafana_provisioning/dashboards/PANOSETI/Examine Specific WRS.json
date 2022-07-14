@@ -25,8 +25,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1654487168098,
+  "id": 4,
+  "iteration": 1657836764170,
   "links": [
     {
       "asDropdown": false,
@@ -73,6 +73,10 @@
           "text": "WRSWITCH",
           "value": "WRSWITCH"
         },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "P697866FB46CDC82E"
+        },
         "definition": "SHOW MEASUREMENTS ON \"metadata\" WHERE \"observatory\" = '$observatory' and \"datatype\" = 'whiterabbit' ",
         "description": "Select specific a WRS.",
         "hide": 0,
@@ -116,13 +120,13 @@
     ]
   },
   "time": {
-    "from": "now-1y",
-    "to": "now"
+    "from": "now-7h-30m",
+    "to": "now-7h"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Examine Specific WRS",
   "uid": "DbAZMPr7z",
-  "version": 3,
+  "version": 1,
   "weekStart": ""
 }

@@ -26,7 +26,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1657178998687,
+  "iteration": 1657836679496,
   "links": [
     {
       "asDropdown": false,
@@ -216,13 +216,13 @@
     ]
   },
   "time": {
-    "from": "now-15m",
-    "to": "now"
+    "from": "now-7h-30m",
+    "to": "now-7h"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "utc",
   "title": "Quabo Home",
   "uid": "6lkcLL97z",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
