@@ -1033,11 +1033,11 @@
     ]
   },
   "time": {
-    "from": "now-7h-30m",
-    "to": "now-7h"
+    "from": "now-30m",
+    "to": "now"
   },
   "timepicker": {},
-  "timezone": "utc",
+  "timezone": "",
   "title": "GPS Home",
   "uid": "uGFNmE9nk",
   "version": 1,

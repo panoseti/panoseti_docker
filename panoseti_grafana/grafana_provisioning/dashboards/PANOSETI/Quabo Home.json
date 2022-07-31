@@ -216,11 +216,11 @@
     ]
   },
   "time": {
-    "from": "now-7h-30m",
-    "to": "now-7h"
+    "from": "now-30m",
+    "to": "now"
   },
   "timepicker": {},
-  "timezone": "utc",
+  "timezone": "",
   "title": "Quabo Home",
   "uid": "6lkcLL97z",
   "version": 2,

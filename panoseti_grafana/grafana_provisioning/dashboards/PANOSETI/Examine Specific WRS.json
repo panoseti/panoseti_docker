@@ -120,11 +120,11 @@
     ]
   },
   "time": {
-    "from": "now-7h-30m",
-    "to": "now-7h"
+    "from": "now-30m",
+    "to": "now"
   },
   "timepicker": {},
-  "timezone": "utc",
+  "timezone": "",
   "title": "Examine Specific WRS",
   "uid": "DbAZMPr7z",
   "version": 1,
