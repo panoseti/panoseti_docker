@@ -4,7 +4,8 @@ datasources:
   - name: "panoseti-influxdb"
     type: influxdb
     database: metadata
-    url: http://panoseti-influxdb:8086
+    #url: http://panoseti-influxdb:8086
     #url: 192.168.1.100:8086
+    url: localhost:8086
     isDefault: true
     editable: false
