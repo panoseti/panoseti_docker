@@ -602,7 +602,7 @@
           "resultFormat": "time_series"
         }
       ],
-      "title": "UPS Status",
+      "title": "WPS Status",
       "transformations": [
         {
           "id": "renameByRegex",
