@@ -26,7 +26,6 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 6,
-  "iteration": 1660164111863,
   "links": [
     {
       "asDropdown": false,
@@ -213,7 +212,7 @@
         "text": {},
         "textMode": "name"
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
           "alias": "$measurement",
@@ -267,6 +266,13 @@
               "pattern": "/QUABO_?.*/"
             }
           }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "QUABO_?(.*)",
+            "renamePattern": "Q$1"
+          }
         }
       ],
       "type": "stat"
@@ -286,6 +292,21 @@
         "uid": "P697866FB46CDC82E"
       },
       "description": "Heatmap of all Quabo TEMP1 metadata.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 8,
         "w": 9,
@@ -299,6 +320,44 @@
       "legend": {
         "show": false
       },
+      "options": {
+        "calculate": true,
+        "calculation": {},
+        "cellGap": 2,
+        "cellValues": {},
+        "color": {
+          "exponent": 0.5,
+          "fill": "#b4ff00",
+          "mode": "scheme",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "Viridis",
+          "steps": 128
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-9
+        },
+        "legend": {
+          "show": false
+        },
+        "rowsFrame": {
+          "layout": "auto"
+        },
+        "showValue": "never",
+        "tooltip": {
+          "show": true,
+          "yHistogram": true
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "reverse": false,
+          "unit": "celsius"
+        }
+      },
+      "pluginVersion": "9.1.7",
       "reverseYBuckets": false,
       "targets": [
         {
@@ -324,7 +383,7 @@
           "measurement": "QUABO_1016",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"TEMP1\") FROM /QUABO_[\\d]*/ WHERE \"observatory\"='$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT last(\"TEMP1\") FROM /QUABO_[\\d]*/ WHERE \"observatory\"='$observatory' AND $timeFilter GROUP BY time($__interval) fill(none)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -431,8 +490,9 @@
       "options": {
         "alignValue": "left",
         "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom"
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
         },
         "mergeValues": true,
         "rowHeight": 0.9,
@@ -518,7 +578,8 @@
         "alignValue": "left",
         "legend": {
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "mergeValues": true,
         "rowHeight": 0.9,
@@ -535,13 +596,22 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "query": "SELECT last(POWER) FROM /UPS.*/ WHERE \"observatory\"='$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT last(POWER) FROM /WPS_(.*)/ WHERE \"observatory\"='$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
         }
       ],
       "title": "UPS Status",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "WPS_(.*)",
+            "renamePattern": "$1"
+          }
+        }
+      ],
       "type": "state-timeline"
     },
     {
@@ -594,8 +664,9 @@
       "options": {
         "alignValue": "center",
         "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom"
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
         },
         "mergeValues": true,
         "rowHeight": 0.9,
@@ -660,7 +731,7 @@
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 36,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [
     "Overview",
@@ -670,7 +741,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "Lick",
           "value": "Lick"
         },
@@ -705,6 +776,6 @@
   "timezone": "",
   "title": "Observatory Home",
   "uid": "4aCoY-rnz",
-  "version": 9,
+  "version": 10,
   "weekStart": ""
 }
