@@ -25,7 +25,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 6,
   "links": [
     {
       "asDropdown": false,
@@ -80,7 +79,7 @@
         "type": "influxdb",
         "uid": "P697866FB46CDC82E"
       },
-      "description": "Last TEMP1 reading from each Quabo.",
+      "description": "Last AGG_STATUS_MSG report from each Quabo.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -89,69 +88,33 @@
           "mappings": [
             {
               "options": {
-                "from": 60,
-                "result": {
-                  "color": "dark-red",
-                  "index": 0
-                },
-                "to": 1000
-              },
-              "type": "range"
-            },
-            {
-              "options": {
-                "from": 57.5,
+                "pattern": "/.*:critical:.*/",
                 "result": {
                   "color": "red",
-                  "index": 1
-                },
-                "to": 60
+                  "index": 0
+                }
               },
-              "type": "range"
+              "type": "regex"
             },
             {
               "options": {
-                "from": 55,
+                "pattern": "/.*:warn:.*/",
                 "result": {
                   "color": "orange",
-                  "index": 2
-                },
-                "to": 57.5
+                  "index": 1
+                }
               },
-              "type": "range"
+              "type": "regex"
             },
             {
               "options": {
-                "from": -10,
+                "pattern": "/.*:ok:.*/",
                 "result": {
                   "color": "green",
-                  "index": 3
-                },
-                "to": 55
+                  "index": 2
+                }
               },
-              "type": "range"
-            },
-            {
-              "options": {
-                "from": -20,
-                "result": {
-                  "color": "orange",
-                  "index": 4
-                },
-                "to": -10
-              },
-              "type": "range"
-            },
-            {
-              "options": {
-                "from": -300,
-                "result": {
-                  "color": "red",
-                  "index": 5
-                },
-                "to": -20
-              },
-              "type": "range"
+              "type": "regex"
             }
           ],
           "noValue": "No data",
@@ -212,7 +175,7 @@
         "text": {},
         "textMode": "name"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "alias": "$measurement",
@@ -236,7 +199,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(TEMP1) FROM /.*/ WHERE \"observatory\" = '$observatory'  AND $timeFilter GROUP BY time($__interval), \"UID\" fill(null)",
+          "query": "SELECT last(\"AGG_STATUS_MSG\")\nFROM /QUABO_.*/\nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter\nGROUP BY time($__interval), \"UID\" fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -257,7 +220,7 @@
           "tags": []
         }
       ],
-      "title": "Last Quabo Temperature",
+      "title": "Overall Quabo Status",
       "transformations": [
         {
           "id": "filterFieldsByName",
@@ -357,7 +320,7 @@
           "unit": "celsius"
         }
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.4.7",
       "reverseYBuckets": false,
       "targets": [
         {
@@ -383,7 +346,7 @@
           "measurement": "QUABO_1016",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"TEMP1\") FROM /QUABO_[\\d]*/ WHERE \"observatory\"='$observatory' AND $timeFilter GROUP BY time($__interval) fill(none)",
+          "query": "SELECT last(\"TEMP1\")\nFROM /QUABO_[\\d]*/\nWHERE \"observatory\"='$observatory' AND \"datatype\"='housekeeping' AND $timeFilter \nGROUP BY time($__interval) fill(none)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -404,11 +367,12 @@
           "tags": []
         }
       ],
-      "title": "Quabo Temperature Heatmap",
+      "title": "Detector Temperature Heat Map",
       "tooltip": {
         "show": true,
         "showHistogram": true
       },
+      "transformations": [],
       "type": "heatmap",
       "xAxis": {
         "show": true
@@ -425,7 +389,124 @@
         "type": "influxdb",
         "uid": "P697866FB46CDC82E"
       },
-      "description": "Timeline of SOFTPLL status for each active WRS.",
+      "description": "The plot shows (-1) x (bias voltage) for each of the 4 detector arrays on every active Quabo.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "points",
+            "fillOpacity": 1,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 2,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 9,
+        "x": 15,
+        "y": 8
+      },
+      "id": 18,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.4.7",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": false,
+          "query": "SELECT -last(HVMON0), -last(HVMON1), -last(HVMON2), -last(HVMON3)\nFROM /QUABO_.*/\nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter\nGROUP BY time($__interval)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Detector High-Voltage",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "QUABO_(\\d+).last",
+            "renamePattern": "Q$1.HVMON0"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "QUABO_(\\d+).last_(\\d+)",
+            "renamePattern": "Q$1.HVMON$2"
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P697866FB46CDC82E"
+      },
+      "description": "Timeline of GPS Status metadata.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -435,6 +516,211 @@
             "fillOpacity": 70,
             "lineWidth": 0,
             "spanNulls": false
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 0,
+        "y": 14
+      },
+      "id": 8,
+      "links": [
+        {
+          "title": "GPS Home",
+          "url": "http://128.114.176.40:3000/d/uGFNmE9nk/gps-home?from=${__from}&to=${__to}&var-quabo=${__series.name}&var-observatory=${observatory}"
+        }
+      ],
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.0.0-beta2",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "query": "SELECT last(RECEIVERMODE), last(GPSDECODINGSTATUS), last(DISCIPLININGMODE), last(DISCIPLININGACTIVITY)\nFROM GPSSUPP \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='GPS' AND $timeFilter\nGROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "GPS Receiver Status",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ".*last",
+            "renamePattern": "Receiver mode"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ".*last_1",
+            "renamePattern": "Decoding Status"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ".*last_2",
+            "renamePattern": "Disciplining Mode"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ".*last_3",
+            "renamePattern": "Disciplining Activity"
+          }
+        }
+      ],
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P697866FB46CDC82E"
+      },
+      "description": "Power strip status",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "lineWidth": 0,
+            "spanNulls": 60000
+          },
+          "mappings": [
+            {
+              "options": {
+                "OFF": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "OFF"
+                },
+                "ON": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "ON"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 5,
+        "y": 14
+      },
+      "id": 16,
+      "options": {
+        "alignValue": "left",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "$measurement",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "query": "SELECT last(POWER)\nFROM /WPS_(.*)/\nWHERE \"observatory\"='$observatory' AND \"datatype\"='outlet' AND $timeFilter\nGROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "WPS Status",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "WPS_(.*)",
+            "renamePattern": "$1"
+          }
+        }
+      ],
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P697866FB46CDC82E"
+      },
+      "description": "Timeline of SOFTPLL status for each active WRS.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "lineWidth": 0,
+            "spanNulls": 10000
           },
           "mappings": [
             {
@@ -481,10 +767,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 12,
-        "w": 9,
-        "x": 15,
-        "y": 8
+        "h": 6,
+        "w": 5,
+        "x": 10,
+        "y": 14
       },
       "id": 12,
       "options": {
@@ -510,7 +796,7 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "query": "SELECT last(\"SOFTPLL\") FROM /WRSWITCH.*/ WHERE \"observatory\" = '$observatory' AND \"datatype\" = 'whiterabbit' AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT last(\"SOFTPLL\")\nFROM /WRSWITCH.*/\nWHERE \"observatory\" = '$observatory' AND \"datatype\"='whiterabbit' AND $timeFilter\nGROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -518,220 +804,11 @@
       ],
       "title": "White Rabbit SoftPLL Status",
       "type": "state-timeline"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "P697866FB46CDC82E"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "fixed"
-          },
-          "custom": {
-            "fillOpacity": 70,
-            "lineWidth": 0,
-            "spanNulls": false
-          },
-          "mappings": [
-            {
-              "options": {
-                "OFF": {
-                  "color": "red",
-                  "index": 1,
-                  "text": "OFF"
-                },
-                "ON": {
-                  "color": "green",
-                  "index": 0,
-                  "text": "ON"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 7,
-        "x": 0,
-        "y": 14
-      },
-      "id": 16,
-      "options": {
-        "alignValue": "left",
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "mergeValues": true,
-        "rowHeight": 0.9,
-        "showValue": "auto",
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "alias": "$measurement",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "P697866FB46CDC82E"
-          },
-          "query": "SELECT last(POWER) FROM /WPS_(.*)/ WHERE \"observatory\"='$observatory' AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series"
-        }
-      ],
-      "title": "WPS Status",
-      "transformations": [
-        {
-          "id": "renameByRegex",
-          "options": {
-            "regex": "WPS_(.*)",
-            "renamePattern": "$1"
-          }
-        }
-      ],
-      "type": "state-timeline"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "P697866FB46CDC82E"
-      },
-      "description": "Timeline of GPS Status metadata.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "fixed"
-          },
-          "custom": {
-            "fillOpacity": 70,
-            "lineWidth": 0,
-            "spanNulls": false
-          },
-          "links": [],
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 8,
-        "x": 7,
-        "y": 14
-      },
-      "id": 8,
-      "links": [
-        {
-          "title": "GPS Home",
-          "url": "http://128.114.176.40:3000/d/uGFNmE9nk/gps-home?from=${__from}&to=${__to}&var-quabo=${__series.name}&var-observatory=${observatory}"
-        }
-      ],
-      "options": {
-        "alignValue": "center",
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "mergeValues": true,
-        "rowHeight": 0.9,
-        "showValue": "auto",
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.0.0-beta2",
-      "targets": [
-        {
-          "alias": "Receiver Mode",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "P697866FB46CDC82E"
-          },
-          "query": "SELECT last(RECEIVERMODE) FROM GPSSUPP \nWHERE \"observatory\" = '$observatory' AND \"datatype\" = 'GPS' AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series"
-        },
-        {
-          "alias": "Decoding Status",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "P697866FB46CDC82E"
-          },
-          "hide": false,
-          "query": "SELECT last(GPSDECODINGSTATUS) FROM GPSSUPP WHERE  \"observatory\" = '$observatory' AND \"datatype\" = 'GPS' AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "C",
-          "resultFormat": "time_series"
-        },
-        {
-          "alias": "Disciplining Mode",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "P697866FB46CDC82E"
-          },
-          "hide": false,
-          "query": "SELECT last(DISCIPLININGMODE) FROM GPSSUPP WHERE  \"observatory\" = '$observatory' AND \"datatype\" = 'GPS' AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series"
-        },
-        {
-          "alias": "Disciplining Activity",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "P697866FB46CDC82E"
-          },
-          "hide": false,
-          "query": "SELECT last(DISCIPLININGACTIVITY) FROM GPSSUPP WHERE  \"observatory\" = '$observatory' AND \"datatype\" = 'GPS' AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "D",
-          "resultFormat": "time_series"
-        }
-      ],
-      "title": "GPS Receiver Status",
-      "type": "state-timeline"
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 37,
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [
     "Overview",
@@ -776,6 +853,6 @@
   "timezone": "",
   "title": "Observatory Home",
   "uid": "4aCoY-rnz",
-  "version": 10,
+  "version": 11,
   "weekStart": ""
 }

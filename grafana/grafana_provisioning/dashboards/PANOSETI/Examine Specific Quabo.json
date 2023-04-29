@@ -25,8 +25,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1657836779511,
   "links": [
     {
       "asDropdown": false,
@@ -74,21 +72,58 @@
           "custom": {
             "fillOpacity": 70,
             "lineWidth": 0,
-            "spanNulls": false
+            "spanNulls": 5000
           },
           "mappings": [
             {
               "options": {
                 "0": {
-                  "color": "red",
-                  "index": 0
+                  "color": "green",
+                  "index": 2,
+                  "text": "OK"
                 },
                 "1": {
-                  "color": "green",
-                  "index": 1
+                  "color": "orange",
+                  "index": 1,
+                  "text": "WARN"
+                },
+                "2": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "CRIT"
                 }
               },
               "type": "value"
+            },
+            {
+              "options": {
+                "pattern": ".*:critical:.*",
+                "result": {
+                  "color": "red",
+                  "index": 3
+                }
+              },
+              "type": "regex"
+            },
+            {
+              "options": {
+                "pattern": ".*:warn:.*",
+                "result": {
+                  "color": "orange",
+                  "index": 4
+                }
+              },
+              "type": "regex"
+            },
+            {
+              "options": {
+                "pattern": ".*:ok:.*",
+                "result": {
+                  "color": "green",
+                  "index": 5
+                }
+              },
+              "type": "regex"
             }
           ],
           "thresholds": {
@@ -117,8 +152,9 @@
       "options": {
         "alignValue": "left",
         "legend": {
-          "displayMode": "hidden",
-          "placement": "bottom"
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
         },
         "mergeValues": true,
         "rowHeight": 0.9,
@@ -135,6 +171,7 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
+          "hide": true,
           "query": "SELECT last(\"LIGHT_SENSOR_STATUS\") FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter GROUP BY time($__interval)",
           "rawQuery": true,
           "refId": "A",
@@ -146,7 +183,7 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "hide": false,
+          "hide": true,
           "query": "SELECT last(\"SHUTTER_STATUS\") FROM \"$quabo\" WHERE  \"observatory\" = '$observatory' AND $timeFilter GROUP BY time($__interval) ",
           "rawQuery": true,
           "refId": "B",
@@ -158,10 +195,34 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "hide": false,
+          "hide": true,
           "query": "SELECT last(\"StartUp\") FROM $quabo WHERE \"observatory\" = '$observatory' AND $timeFilter GROUP BY time($__interval)",
           "rawQuery": true,
           "refId": "C",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "Status Log",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": false,
+          "query": "SELECT last(\"AGG_STATUS_MSG\")\nFROM $quabo\nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter\nGROUP BY time($__interval), \"UID\" fill(null)",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "Status Level",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": true,
+          "query": "SELECT last(\"AGG_STATUS_LEVEL\")\nFROM $quabo\nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter\nGROUP BY time($__interval), \"UID\" fill(null)",
+          "rawQuery": true,
+          "refId": "E",
           "resultFormat": "time_series"
         }
       ],
@@ -180,6 +241,8 @@
             "mode": "thresholds"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -319,7 +382,8 @@
             "lastNotNull"
           ],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -414,7 +478,7 @@
         "text": {},
         "textMode": "value_and_name"
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "alias": "UID",
@@ -556,7 +620,7 @@
         "text": {},
         "textMode": "value_and_name"
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "alias": "UID",
@@ -683,7 +747,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -759,7 +823,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "9.0.2",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "alias": "UID",
@@ -865,6 +929,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -923,7 +989,8 @@
             "lastNotNull"
           ],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -994,6 +1061,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1070,7 +1139,8 @@
             "lastNotNull"
           ],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -1221,7 +1291,8 @@
                 "mean"
               ],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -1375,7 +1446,8 @@
                 "mean"
               ],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -1529,7 +1601,8 @@
                 "mean"
               ],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -1623,7 +1696,8 @@
                 "mean"
               ],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -1732,7 +1806,8 @@
                 "mean"
               ],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -1827,7 +1902,8 @@
                 "mean"
               ],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -1922,7 +1998,8 @@
                 "mean"
               ],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -2030,7 +2107,8 @@
                 "mean"
               ],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -2124,7 +2202,8 @@
                 "mean"
               ],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -2213,8 +2292,9 @@
       "type": "row"
     }
   ],
-  "refresh": false,
-  "schemaVersion": 36,
+  "refresh": "5s",
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [
     "Quabo"
@@ -2223,7 +2303,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "QUABO_1016",
           "value": "QUABO_1016"
         },
@@ -2249,8 +2329,8 @@
       {
         "current": {
           "selected": false,
-          "text": "test",
-          "value": "test"
+          "text": "Lick",
+          "value": "Lick"
         },
         "datasource": {
           "type": "influxdb",
@@ -2281,6 +2361,6 @@
   "timezone": "",
   "title": "Examine Specific Quabo",
   "uid": "oVK2NBrnk",
-  "version": 3,
+  "version": 6,
   "weekStart": ""
 }
