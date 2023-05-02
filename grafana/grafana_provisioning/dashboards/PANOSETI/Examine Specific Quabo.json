@@ -205,7 +205,7 @@
         "type": "influxdb",
         "uid": "P697866FB46CDC82E"
       },
-      "description": "Status timeline of this Quabo's overall status",
+      "description": "Status timeline of this Quabo's various statuses.\n\nNote that in a given module, only the Quabo at position 1 contains valid Shutter Status metadata. ",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -301,7 +301,7 @@
       },
       "targets": [
         {
-          "alias": "Light Sensor Status",
+          "alias": "Light Sensor",
           "datasource": {
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
@@ -313,13 +313,13 @@
           "resultFormat": "time_series"
         },
         {
-          "alias": "Shutter Status",
+          "alias": "Shutter",
           "datasource": {
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
           "hide": false,
-          "query": "SELECT last(\"SHUTTER_STATUS\") FROM \"$quabo\" WHERE  \"observatory\" = '$observatory' AND $timeFilter GROUP BY time($__interval) ",
+          "query": "SELECT last(\"SHUTTER_STATUS\") FROM \"$quabo\" WHERE  \"observatory\" = '$observatory' AND $timeFilter AND BOARDLOC%4=1 GROUP BY time($__interval) ",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -1719,8 +1719,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1818,8 +1817,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1917,8 +1915,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2404,8 +2401,8 @@
       {
         "current": {
           "selected": true,
-          "text": "QUABO_4",
-          "value": "QUABO_4"
+          "text": "QUABO_5",
+          "value": "QUABO_5"
         },
         "datasource": {
           "type": "influxdb",
@@ -2461,6 +2458,6 @@
   "timezone": "",
   "title": "Examine Specific Quabo",
   "uid": "oVK2NBrnk",
-  "version": 8,
+  "version": 9,
   "weekStart": ""
 }
