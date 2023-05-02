@@ -689,7 +689,7 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "query": "SELECT last(POWER)\nFROM /WPS_(.*)/\nWHERE \"observatory\"='$observatory' AND \"datatype\"='outlet' AND $timeFilter\nGROUP BY time($__interval) fill(null)",
+          "query": "SELECT last(POWER)\nFROM /WPS(.*)/\nWHERE \"observatory\"='$observatory' AND \"datatype\"='outlet' AND $timeFilter\nGROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
