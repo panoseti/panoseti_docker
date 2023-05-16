@@ -415,7 +415,7 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "query": "SELECT HVIMON0 - (HVMON0 / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
+          "query": "SELECT HVIMON0 + (HVMON0 / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -427,7 +427,7 @@
             "uid": "P697866FB46CDC82E"
           },
           "hide": false,
-          "query": "SELECT HVIMON1 - (HVMON1 / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
+          "query": "SELECT HVIMON1 + (HVMON1 / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -439,7 +439,7 @@
             "uid": "P697866FB46CDC82E"
           },
           "hide": false,
-          "query": "SELECT HVIMON2 - (HVMON2 / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
+          "query": "SELECT HVIMON2 + (HVMON2 / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series"
@@ -451,7 +451,7 @@
             "uid": "P697866FB46CDC82E"
           },
           "hide": false,
-          "query": "SELECT HVIMON3 - (HVMON3 / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
+          "query": "SELECT HVIMON3 + (HVMON3 / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series"
