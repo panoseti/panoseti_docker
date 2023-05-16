@@ -333,7 +333,7 @@
         "type": "influxdb",
         "uid": "P697866FB46CDC82E"
       },
-      "description": "HVIMONx is the current drawn by detector array x",
+      "description": "\"Detector x\"  plots the current drawn by detector array x.\n\nPlease see https://github.com/panoseti/panoseti/issues/149 for details about how this value is computed from the raw detector current measurement, HVIMONx",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -410,54 +410,55 @@
       },
       "targets": [
         {
-          "alias": "HVIMON0",
+          "alias": "Detector 0",
           "datasource": {
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "query": "SELECT HVIMON0 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
+          "query": "SELECT HVIMON0 - (HVMON0 / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
         },
         {
-          "alias": "HVIMON1",
+          "alias": "Detector 1",
           "datasource": {
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
           "hide": false,
-          "query": "SELECT HVIMON1 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter",
+          "query": "SELECT HVIMON1 - (HVMON1 / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
         },
         {
-          "alias": "HVIMON2",
+          "alias": "Detector 2",
           "datasource": {
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
           "hide": false,
-          "query": "SELECT HVIMON2 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
+          "query": "SELECT HVIMON2 - (HVMON2 / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series"
         },
         {
-          "alias": "HVIMON3",
+          "alias": "Detector 3",
           "datasource": {
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
           "hide": false,
-          "query": "SELECT HVIMON3 FROM \"$quabo\" WHERE \"observatory\" = '$observatory' AND $timeFilter ",
+          "query": "SELECT HVIMON3 - (HVMON3 / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series"
         }
       ],
       "title": "Detector Current Draw",
+      "transformations": [],
       "type": "timeseries"
     },
     {
@@ -1083,8 +1084,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1241,8 +1241,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1399,8 +1398,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1497,8 +1495,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1610,8 +1607,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1709,8 +1705,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1808,8 +1803,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1920,8 +1914,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2018,8 +2011,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2300,9 +2292,9 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "QUABO_5",
-          "value": "QUABO_5"
+          "selected": false,
+          "text": "all",
+          "value": "all"
         },
         "datasource": {
           "type": "influxdb",
@@ -2358,6 +2350,6 @@
   "timezone": "",
   "title": "Examine Specific Quabo",
   "uid": "oVK2NBrnk",
-  "version": 10,
+  "version": 11,
   "weekStart": ""
 }
