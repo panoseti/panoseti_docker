@@ -88,6 +88,31 @@
           "mappings": [
             {
               "options": {
+                "0": {
+                  "color": "green",
+                  "index": 6,
+                  "text": "ok"
+                },
+                "8": {
+                  "color": "blue",
+                  "index": 5,
+                  "text": "info"
+                },
+                "16": {
+                  "color": "orange",
+                  "index": 4,
+                  "text": "warn"
+                },
+                "32": {
+                  "color": "red",
+                  "index": 3,
+                  "text": "crit"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
                 "pattern": "/.*:critical:.*/",
                 "result": {
                   "color": "red",
@@ -199,7 +224,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"AGG_STATUS_MSG\")\nFROM /QUABO_.*/\nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter\nGROUP BY time($__interval), \"UID\" fill(null)",
+          "query": "SELECT last(\"AGG_STATUS_LEVEL\")\nFROM /QUABO_.*/\nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter\nGROUP BY time($__interval), \"UID\" fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -855,6 +880,6 @@
   "timezone": "",
   "title": "Observatory Home",
   "uid": "4aCoY-rnz",
-  "version": 12,
+  "version": 14,
   "weekStart": ""
 }

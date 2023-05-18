@@ -193,36 +193,6 @@
                 }
               },
               "type": "value"
-            },
-            {
-              "options": {
-                "pattern": ".*:critical:.*",
-                "result": {
-                  "color": "red",
-                  "index": 2
-                }
-              },
-              "type": "regex"
-            },
-            {
-              "options": {
-                "pattern": ".*:warn:.*",
-                "result": {
-                  "color": "orange",
-                  "index": 3
-                }
-              },
-              "type": "regex"
-            },
-            {
-              "options": {
-                "pattern": ".*:ok:.*",
-                "result": {
-                  "color": "green",
-                  "index": 4
-                }
-              },
-              "type": "regex"
             }
           ],
           "thresholds": {
@@ -239,7 +209,46 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "Status Level"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "green",
+                        "index": 3,
+                        "text": "ok"
+                      },
+                      "8": {
+                        "color": "blue",
+                        "index": 2,
+                        "text": "info"
+                      },
+                      "16": {
+                        "color": "orange",
+                        "index": 1,
+                        "text": "warn"
+                      },
+                      "32": {
+                        "color": "red",
+                        "index": 0,
+                        "text": "crit"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 5,
@@ -306,7 +315,7 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "hide": false,
+          "hide": true,
           "query": "SELECT last(\"AGG_STATUS_MSG\")\nFROM $quabo\nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter\nGROUP BY time($__interval), \"UID\" fill(null)",
           "rawQuery": true,
           "refId": "D",
@@ -318,7 +327,7 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "hide": true,
+          "hide": false,
           "query": "SELECT last(\"AGG_STATUS_LEVEL\")\nFROM $quabo\nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter\nGROUP BY time($__interval), \"UID\" fill(null)",
           "rawQuery": true,
           "refId": "E",
@@ -415,6 +424,7 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
+          "hide": true,
           "query": "SELECT HVIMON0 - (abs(HVMON0) / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
           "rawQuery": true,
           "refId": "A",
@@ -426,7 +436,7 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "hide": false,
+          "hide": true,
           "query": "SELECT HVIMON1 - (abs(HVMON1) / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
           "rawQuery": true,
           "refId": "B",
@@ -438,7 +448,7 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "hide": false,
+          "hide": true,
           "query": "SELECT HVIMON2 - (abs(HVMON2) / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
           "rawQuery": true,
           "refId": "C",
@@ -450,10 +460,58 @@
             "type": "influxdb",
             "uid": "P697866FB46CDC82E"
           },
-          "hide": false,
+          "hide": true,
           "query": "SELECT HVIMON3 - (abs(HVMON3) / 0.499) / 1000000\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
           "rawQuery": true,
           "refId": "D",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "Detector 0",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": false,
+          "query": "SELECT DETR0_CURR\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
+          "rawQuery": true,
+          "refId": "E",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "Detector 1",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": false,
+          "query": "SELECT DETR1_CURR\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
+          "rawQuery": true,
+          "refId": "F",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "Detector 2",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": false,
+          "query": "SELECT DETR2_CURR\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
+          "rawQuery": true,
+          "refId": "G",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "Detector 3",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P697866FB46CDC82E"
+          },
+          "hide": false,
+          "query": "SELECT DETR3_CURR\nFROM \"$quabo\" \nWHERE \"observatory\" = '$observatory' AND \"datatype\"='housekeeping' AND $timeFilter ",
+          "rawQuery": true,
+          "refId": "H",
           "resultFormat": "time_series"
         }
       ],
@@ -614,7 +672,7 @@
                 "config": {
                   "id": "regex",
                   "options": {
-                    "value": "<<.*"
+                    "value": ".*,"
                   }
                 },
                 "fieldName": "Status Log"
@@ -2293,8 +2351,8 @@
       {
         "current": {
           "selected": false,
-          "text": "all",
-          "value": "all"
+          "text": "QUABO_7",
+          "value": "QUABO_7"
         },
         "datasource": {
           "type": "influxdb",
@@ -2350,6 +2408,6 @@
   "timezone": "",
   "title": "Examine Specific Quabo",
   "uid": "oVK2NBrnk",
-  "version": 11,
+  "version": 16,
   "weekStart": ""
 }
