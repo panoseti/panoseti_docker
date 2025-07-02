@@ -170,7 +170,7 @@
                 "value": [
                   {
                     "title": "More details",
-                    "url": "http://128.114.176.40:3000/d/oVK2NBrnk/examine-specific-quabo?${__url_time_range}&var-quabo=${__series.name}&var-observatory=${observatory}"
+                    "url": "/d/oVK2NBrnk/examine-specific-quabo?${__url_time_range}&var-quabo=${__series.name}&var-observatory=${observatory}"
                   }
                 ]
               }
@@ -570,7 +570,7 @@
       "links": [
         {
           "title": "GPS Home",
-          "url": "http://128.114.176.40:3000/d/uGFNmE9nk/gps-home?from=${__from}&to=${__to}&var-quabo=${__series.name}&var-observatory=${observatory}"
+          "url": "/d/uGFNmE9nk/gps-home?from=${__from}&to=${__to}&var-quabo=${__series.name}&var-observatory=${observatory}"
         }
       ],
       "maxDataPoints": 100,
